@@ -29,9 +29,12 @@ elif (3, 0) < version < (3, 3):
           ' ({}.{} detected).'.format(*version))
     sys.exit(-1)
 
-VERSION = '3.10'
+VERSION = '3.11'
 
-install_requires = ['psutil', 'colorama', 'six', 'decorator']
+# Original line
+#install_requires = ['psutil', 'colorama', 'six', 'decorator']
+# Quick-hacked Cygwin compatibilit
+install_requires = ['colorama', 'six', 'decorator']
 extras_require = {':python_version<"3.4"': ['pathlib2'],
                   ":sys_platform=='win32'": ['win_unicode_console']}
 

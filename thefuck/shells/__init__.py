@@ -3,7 +3,7 @@ implement `from_shell`, `to_shell`, `app_alias`, `put_to_history` and
 `get_aliases` methods.
 """
 import os
-from psutil import Process
+#from psutil import Process
 from .bash import Bash
 from .fish import Fish
 from .generic import Generic
@@ -20,25 +20,34 @@ shells = {'bash': Bash,
 
 
 def _get_shell():
-    proc = Process(os.getpid())
+    proc = os.readlink('/proc/%d/exe' % os.getppid())
+    name = os.path.basename(proc)
 
-    while proc is not None:
-        try:
-            name = proc.name()
-        except TypeError:
-            name = proc.name
-
-        name = os.path.splitext(name)[0]
-
-        if name in shells:
-            return shells[name]()
-
-        try:
-            proc = proc.parent()
-        except TypeError:
-            proc = proc.parent
+    if name in shells:
+        return shells[name]()
 
     return Generic()
+
+    # Original function
+    #proc = Process(os.getpid())
+
+    #while proc is not None:
+    #    try:
+    #        name = proc.name()
+    #    except TypeError:
+    #        name = proc.name
+
+    #    name = os.path.splitext(name)[0]
+
+    #   if name in shells:
+    #       return shells[name]()
+
+    #    try:
+    #        proc = proc.parent()
+    #    except TypeError:
+    #        proc = proc.parent
+
+    #return Generic()
 
 
 shell = _get_shell()

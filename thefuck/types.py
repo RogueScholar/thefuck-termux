@@ -3,7 +3,7 @@ from subprocess import Popen, PIPE
 import os
 import sys
 import six
-from psutil import Process, TimeoutExpired
+#from psutil import Process, TimeoutExpired
 from . import logs
 from .shells import shell
 from .conf import settings
@@ -71,15 +71,18 @@ class Command(object):
         :rtype: bool
 
         """
-        proc = Process(popen.pid)
-        try:
-            proc.wait(settings.wait_command)
-            return True
-        except TimeoutExpired:
-            for child in proc.children(recursive=True):
-                child.kill()
-            proc.kill()
-            return False
+        return True
+        # Removed for quick-hacked Cygwin compatibility
+        # Probably creates issues with timeouts
+        #proc = Process(popen.pid)
+        #try:
+        #    proc.wait(settings.wait_command)
+        #    return True
+        #except TimeoutExpired:
+        #    for child in proc.children(recursive=True):
+        #        child.kill()
+        #    proc.kill()
+        #    return False
 
     @staticmethod
     def _prepare_script(raw_script):
@@ -115,17 +118,20 @@ class Command(object):
 
         with logs.debug_time(u'Call: {}; with env: {};'.format(script, env)):
             result = Popen(script, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, env=env)
-            if cls._wait_output(result):
-                stdout = result.stdout.read().decode('utf-8')
-                stderr = result.stderr.read().decode('utf-8')
+            # Removed for quick-hacked Cygwin compatibility
+            # Note indentation change of remaining lines
+            #if cls._wait_output(result):
+            stdout = result.stdout.read().decode('utf-8')
+            stderr = result.stderr.read().decode('utf-8')
 
-                logs.debug(u'Received stdout: {}'.format(stdout))
-                logs.debug(u'Received stderr: {}'.format(stderr))
+            logs.debug(u'Received stdout: {}'.format(stdout))
+            logs.debug(u'Received stderr: {}'.format(stderr))
 
-                return cls(script, stdout, stderr)
-            else:
-                logs.debug(u'Execution timed out!')
-                return cls(script, None, None)
+            return cls(script, stdout, stderr)
+            #Removed for quick-hacked Cygwin compatibility
+            #else:
+                #logs.debug(u'Execution timed out!')
+                #return cls(script, None, None)
 
 
 class Rule(object):
