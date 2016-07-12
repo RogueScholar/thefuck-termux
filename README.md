@@ -1,3 +1,19 @@
+# **If you are not on Cygwin, you don't want this version. Go get the original from (nvbn's repo)[https://github.com/nvbn/thefuck]**
+
+If you want `uninstall.sh` to work, you *must* use `install.sh` or install with `python setup.py install --record installed_files.txt`. 
+
+There's almost definitely issues with timeouts in this version. 
+
+Changes were made to the following files:
+
+ - `setup.py`
+ - `thefuck/types.py` 
+ - `thefuck/shells/__init__.py`
+
+To see changes, compare those files with the ones in the `/originals` directory.
+
+Now, the original README contents:
+
 # The Fuck [![Version][version-badge]][version-link] [![Build Status][travis-badge]][travis-link] [![Windows Build Status][appveyor-badge]][appveyor-link] [![Coverage][coverage-badge]][coverage-link] [![MIT License][license-badge]](LICENSE.md)
 
 Magnificent app which corrects your previous console command,
