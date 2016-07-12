@@ -1,4 +1,4 @@
-# **If you are not on Cygwin, you don't want this version. Go get the original from (nvbn's repo)[https://github.com/nvbn/thefuck]**
+# **If you are not on Cygwin, you don't want this version. Go get the original from [nvbn's repo](https://github.com/nvbn/thefuck)**
 
 If you want `uninstall.sh` to work, you *must* use `install.sh` or install with `python setup.py install --record installed_files.txt`. 
 
