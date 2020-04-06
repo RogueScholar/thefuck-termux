@@ -24,11 +24,11 @@ def test_match(command):
         Command(
             "mvn clean",
             """
-[INFO] Scanning for projects...[INFO]                                                                         
+[INFO] Scanning for projects...[INFO]
 [INFO] ------------------------------------------------------------------------
 [INFO] Building test 0.2
 [INFO] ------------------------------------------------------------------------
-[INFO] 
+[INFO]
 [INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ test ---
 [INFO] Deleting /home/mlk/code/test/target
 [INFO] ------------------------------------------------------------------------
