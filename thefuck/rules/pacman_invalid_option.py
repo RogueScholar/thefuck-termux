@@ -9,8 +9,7 @@ from thefuck.utils import for_app
 @for_app("pacman")
 def match(command):
     return command.output.startswith("error: invalid option '-") and any(
-        " -{}".format(option) in command.script for option in "surqfdvt"
-    )
+        " -{}".format(option) in command.script for option in "surqfdvt")
 
 
 def get_new_command(command):

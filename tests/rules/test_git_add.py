@@ -13,13 +13,13 @@ def path_exists(mocker):
 @pytest.fixture
 def output(target):
     return "error: pathspec '{}' did not match any " "file(s) known to git.".format(
-        target
-    )
+        target)
 
 
 @pytest.mark.parametrize(
     "script, target",
-    [("git submodule update unknown", "unknown"), ("git commit unknown", "unknown")],
+    [("git submodule update unknown", "unknown"),
+     ("git commit unknown", "unknown")],
 )
 def test_match(output, script, target):
     assert match(Command(script, output))
@@ -46,7 +46,8 @@ def test_not_match(path_exists, output, script, target, exists):
             "unknown",
             "git add -- unknown && git submodule update unknown",
         ),
-        ("git commit unknown", "unknown", "git add -- unknown && git commit unknown"),
+        ("git commit unknown", "unknown",
+         "git add -- unknown && git commit unknown"),
     ],
 )
 def test_get_new_command(output, script, target, new_command):

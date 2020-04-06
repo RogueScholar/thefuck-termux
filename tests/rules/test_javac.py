@@ -5,9 +5,9 @@ from thefuck.rules.javac import match
 from thefuck.types import Command
 
 
-@pytest.mark.parametrize(
-    "command", [Command("javac foo", ""), Command("javac bar", "")]
-)
+@pytest.mark.parametrize("command",
+                         [Command("javac foo", ""),
+                          Command("javac bar", "")])
 def test_match(command):
     assert match(command)
 

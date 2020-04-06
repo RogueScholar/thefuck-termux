@@ -4,7 +4,6 @@ from thefuck.rules.brew_cask_dependency import get_new_command
 from thefuck.rules.brew_cask_dependency import match
 from thefuck.types import Command
 
-
 output = """sshfs: OsxfuseRequirement unsatisfied!
 
 You can install with Homebrew-Cask:
@@ -22,7 +21,8 @@ def test_match():
 
 @pytest.mark.parametrize(
     "script, output",
-    [("brew link sshfs", output), ("cat output", output), ("brew install sshfs", "")],
+    [("brew link sshfs", output), ("cat output", output),
+     ("brew install sshfs", "")],
 )
 def test_not_match(script, output):
     command = Command(script, output)
@@ -31,7 +31,8 @@ def test_not_match(script, output):
 
 @pytest.mark.parametrize(
     "before, after",
-    [("brew install sshfs", "brew cask install osxfuse && brew install sshfs")],
+    [("brew install sshfs", "brew cask install osxfuse && brew install sshfs")
+     ],
 )
 def test_get_new_command(before, after):
     command = Command(before, output)

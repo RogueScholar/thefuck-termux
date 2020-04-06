@@ -8,13 +8,11 @@ from thefuck.utils import for_app
 @sudo_support
 @for_app("cd")
 def match(command):
-    return command.script.startswith("cd ") and any(
-        (
-            "no such file or directory" in command.output.lower(),
-            "cd: can't cd to" in command.output.lower(),
-            "does not exist" in command.output.lower(),
-        )
-    )
+    return command.script.startswith("cd ") and any((
+        "no such file or directory" in command.output.lower(),
+        "cd: can't cd to" in command.output.lower(),
+        "does not exist" in command.output.lower(),
+    ))
 
 
 @sudo_support

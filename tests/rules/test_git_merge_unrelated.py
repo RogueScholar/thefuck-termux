@@ -4,7 +4,6 @@ from thefuck.rules.git_merge_unrelated import get_new_command
 from thefuck.rules.git_merge_unrelated import match
 from thefuck.types import Command
 
-
 output = "fatal: refusing to merge unrelated histories"
 
 

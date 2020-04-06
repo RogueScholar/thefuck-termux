@@ -4,10 +4,8 @@ from thefuck.utils import replace_argument
 
 @git_support
 def match(command):
-    return (
-        "branch -d" in command.script
-        and "If you are sure you want to delete it" in command.output
-    )
+    return ("branch -d" in command.script
+            and "If you are sure you want to delete it" in command.output)
 
 
 @git_support

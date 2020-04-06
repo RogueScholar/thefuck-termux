@@ -3,7 +3,6 @@ import os
 import re
 from subprocess import call
 
-
 version = None
 
 

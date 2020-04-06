@@ -52,7 +52,10 @@ def test_match(command):
 
 @pytest.mark.parametrize(
     "command",
-    [Command("gradle star", output("star")), Command("react-native start", "")],
+    [
+        Command("gradle star", output("star")),
+        Command("react-native start", "")
+    ],
 )
 def test_not_match(command):
     assert not match(command)
@@ -69,6 +72,7 @@ def test_not_match(command):
     ],
 )
 def test_get_new_command(mocker, command, result):
-    patch = mocker.patch("thefuck.rules.react_native_command_unrecognized.Popen")
+    patch = mocker.patch(
+        "thefuck.rules.react_native_command_unrecognized.Popen")
     patch.return_value.stdout = BytesIO(stdout)
     assert get_new_command(command)[0] == result

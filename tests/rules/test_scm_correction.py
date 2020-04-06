@@ -7,9 +7,8 @@ from thefuck.types import Command
 
 @pytest.fixture
 def get_actual_scm_mock(mocker):
-    return mocker.patch(
-        "thefuck.rules.scm_correction._get_actual_scm", return_value=None
-    )
+    return mocker.patch("thefuck.rules.scm_correction._get_actual_scm",
+                        return_value=None)
 
 
 @pytest.mark.parametrize(
@@ -17,7 +16,8 @@ def get_actual_scm_mock(mocker):
     [
         (
             "git log",
-            "fatal: Not a git repository " "(or any of the parent directories): .git",
+            "fatal: Not a git repository "
+            "(or any of the parent directories): .git",
             "hg",
         ),
         (
@@ -39,7 +39,8 @@ def test_match(get_actual_scm_mock, script, output, actual_scm):
         ("git log", "", "hg"),
         (
             "git log",
-            "fatal: Not a git repository " "(or any of the parent directories): .git",
+            "fatal: Not a git repository "
+            "(or any of the parent directories): .git",
             None,
         ),
         (

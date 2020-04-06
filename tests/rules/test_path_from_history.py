@@ -34,7 +34,10 @@ def test_match(script, output):
 
 @pytest.mark.parametrize(
     "script, output",
-    [("myapp cats", "no such file or directory: project"), ("cd project", ""),],
+    [
+        ("myapp cats", "no such file or directory: project"),
+        ("cd project", ""),
+    ],
 )
 def test_not_match(script, output):
     assert not match(Command(script, output))
@@ -43,7 +46,8 @@ def test_not_match(script, output):
 @pytest.mark.parametrize(
     "script, output, result",
     [
-        ("ls project", "no such file or directory: project", "ls ~/work/project"),
+        ("ls project", "no such file or directory: project",
+         "ls ~/work/project"),
         ("cd java", "can't cd to java", "cd /opt/java"),
     ],
 )

@@ -7,7 +7,8 @@ from thefuck.types import Command
 
 @pytest.mark.parametrize(
     "script, output",
-    [("cp dir", "cp: dor: is a directory"), ("cp dir", "cp: omitting directory 'dir'")],
+    [("cp dir", "cp: dor: is a directory"),
+     ("cp dir", "cp: omitting directory 'dir'")],
 )
 def test_match(script, output):
     assert match(Command(script, output))

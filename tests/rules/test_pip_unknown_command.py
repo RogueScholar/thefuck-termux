@@ -23,8 +23,7 @@ def suggested():
 @pytest.fixture
 def pip_unknown_cmd(broken, suggested):
     return 'ERROR: unknown command "{}" - maybe you meant "{}"'.format(
-        broken, suggested
-    )
+        broken, suggested)
 
 
 def test_match(pip_unknown_cmd, pip_unknown_cmd_without_recommend):
@@ -35,7 +34,8 @@ def test_match(pip_unknown_cmd, pip_unknown_cmd_without_recommend):
 @pytest.mark.parametrize(
     "script, broken, suggested, new_cmd",
     [
-        ("pip un+install thefuck", "un+install", "uninstall", "pip uninstall thefuck"),
+        ("pip un+install thefuck", "un+install", "uninstall",
+         "pip uninstall thefuck"),
         ("pip instatl", "instatl", "install", "pip install"),
     ],
 )

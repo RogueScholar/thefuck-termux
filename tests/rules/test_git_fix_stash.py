@@ -4,7 +4,6 @@ from thefuck.rules.git_fix_stash import get_new_command
 from thefuck.rules.git_fix_stash import match
 from thefuck.types import Command
 
-
 git_stash_err = """
 usage: git stash list [<options>]
    or: git stash show [<stash>]
@@ -18,8 +17,8 @@ usage: git stash list [<options>]
 
 
 @pytest.mark.parametrize(
-    "wrong", ["git stash opp", "git stash Some message", "git stash saev Some message"]
-)
+    "wrong",
+    ["git stash opp", "git stash Some message", "git stash saev Some message"])
 def test_match(wrong):
     assert match(Command(wrong, git_stash_err))
 

@@ -5,9 +5,8 @@ from thefuck.utils import for_app
 
 @for_app("heroku")
 def match(command):
-    return (
-        "https://devcenter.heroku.com/articles/multiple-environments" in command.output
-    )
+    return ("https://devcenter.heroku.com/articles/multiple-environments" in
+            command.output)
 
 
 def get_new_command(command):

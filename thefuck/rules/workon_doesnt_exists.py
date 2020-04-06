@@ -19,10 +19,8 @@ def _get_all_environments():
 
 @for_app("workon")
 def match(command):
-    return (
-        len(command.script_parts) >= 2
-        and command.script_parts[1] not in _get_all_environments()
-    )
+    return (len(command.script_parts) >= 2
+            and command.script_parts[1] not in _get_all_environments())
 
 
 def get_new_command(command):
@@ -31,6 +29,7 @@ def get_new_command(command):
 
     available = _get_all_environments()
     if available:
-        return replace_command(command, misspelled_env, available) + [create_new]
+        return replace_command(command, misspelled_env,
+                               available) + [create_new]
     else:
         return create_new

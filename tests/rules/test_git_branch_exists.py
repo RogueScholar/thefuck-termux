@@ -13,8 +13,7 @@ def output(src_branch_name):
 @pytest.fixture
 def new_command(branch_name):
     return [
-        cmd.format(branch_name)
-        for cmd in [
+        cmd.format(branch_name) for cmd in [
             "git branch -d {0} && git branch {0}",
             "git branch -d {0} && git checkout -b {0}",
             "git branch -D {0} && git branch {0}",
@@ -42,7 +41,10 @@ def test_match(output, script, branch_name):
 
 @pytest.mark.parametrize(
     "script",
-    ["git branch foo", "git checkout bar", 'git checkout -b "let\'s-push-this"'],
+    [
+        "git branch foo", "git checkout bar",
+        'git checkout -b "let\'s-push-this"'
+    ],
 )
 def test_not_match(script):
     assert not match(Command(script, ""))
@@ -53,8 +55,10 @@ def test_not_match(script):
     [
         ("git branch foo", "foo", "foo"),
         ("git checkout bar", "bar", "bar"),
-        ('git checkout -b "let\'s-push-this"', "let's-push-this", "let\\'s-push-this"),
+        ('git checkout -b "let\'s-push-this"', "let's-push-this",
+         "let\\'s-push-this"),
     ],
 )
-def test_get_new_command(output, new_command, script, src_branch_name, branch_name):
+def test_get_new_command(output, new_command, script, src_branch_name,
+                         branch_name):
     assert get_new_command(Command(script, output)) == new_command

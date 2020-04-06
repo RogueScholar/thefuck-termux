@@ -12,8 +12,7 @@ def output():
         "dist/app.js\n"
         "dist/background.js\n"
         "dist/options.js\n"
-        "Use -f if you really want to add them.\n"
-    )
+        "Use -f if you really want to add them.\n")
 
 
 def test_match(output):
@@ -22,7 +21,5 @@ def test_match(output):
 
 
 def test_get_new_command(output):
-    assert (
-        get_new_command(Command("git add dist/*.js", output))
-        == "git add --force dist/*.js"
-    )
+    assert (get_new_command(Command("git add dist/*.js",
+                                    output)) == "git add --force dist/*.js")

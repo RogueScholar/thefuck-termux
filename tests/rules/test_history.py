@@ -23,6 +23,7 @@ def test_not_match(script):
     assert not match(Command(script, ""))
 
 
-@pytest.mark.parametrize("script, result", [("ls cet", "ls cat"), ("daff x", "diff x")])
+@pytest.mark.parametrize("script, result", [("ls cet", "ls cat"),
+                                            ("daff x", "diff x")])
 def test_get_new_command(script, result):
     assert get_new_command(Command(script, "")) == result

@@ -120,8 +120,9 @@ def test_match(command):
 
 
 @pytest.mark.parametrize(
-    "command", [Command("npm nuild", output("nuild")), Command("grunt rm", "")]
-)
+    "command",
+    [Command("npm nuild", output("nuild")),
+     Command("grunt rm", "")])
 def test_not_match(command):
     assert not match(command)
 
@@ -130,7 +131,8 @@ def test_not_match(command):
     "command, result",
     [
         (Command("grunt defualt", output("defualt")), "grunt default"),
-        (Command("grunt cmpass:all", output("cmpass:all")), "grunt compass:all"),
+        (Command("grunt cmpass:all",
+                 output("cmpass:all")), "grunt compass:all"),
         (
             Command("grunt cmpass:all --color", output("cmpass:all")),
             "grunt compass:all --color",

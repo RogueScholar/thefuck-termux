@@ -4,7 +4,6 @@ from thefuck.rules.choco_install import get_new_command
 from thefuck.rules.choco_install import match
 from thefuck.types import Command
 
-
 package_not_found_error = (
     "Chocolatey v0.10.15\n"
     "Installing the following packages:\n"
@@ -28,8 +27,7 @@ package_not_found_error = (
     "If the package version is a prerelease and you didn't specify `--pre`,\n"
     " the package may not be found.\n"
     "Please see https://chocolatey.org/docs/troubleshooting for more\n"
-    " assistance.\n"
-)
+    " assistance.\n")
 
 
 @pytest.mark.parametrize(
@@ -39,9 +37,11 @@ package_not_found_error = (
         Command("cinst logstitcher", package_not_found_error),
         Command("choco install logstitcher -y", package_not_found_error),
         Command("cinst logstitcher -y", package_not_found_error),
-        Command("choco install logstitcher -y -n=test", package_not_found_error),
+        Command("choco install logstitcher -y -n=test",
+                package_not_found_error),
         Command("cinst logstitcher -y -n=test", package_not_found_error),
-        Command("choco install logstitcher -y -n=test /env", package_not_found_error),
+        Command("choco install logstitcher -y -n=test /env",
+                package_not_found_error),
         Command("cinst logstitcher -y -n=test /env", package_not_found_error),
         Command("choco install chocolatey -y", package_not_found_error),
         Command("cinst chocolatey -y", package_not_found_error),
@@ -86,13 +86,15 @@ def not_test_match(command):
     [
         ("choco install logstitcher", "choco install logstitcher.install"),
         ("cinst logstitcher", "cinst logstitcher.install"),
-        ("choco install logstitcher -y", "choco install logstitcher.install -y"),
+        ("choco install logstitcher -y",
+         "choco install logstitcher.install -y"),
         ("cinst logstitcher -y", "cinst logstitcher.install -y"),
         (
             "choco install logstitcher -y -n=test",
             "choco install logstitcher.install -y -n=test",
         ),
-        ("cinst logstitcher -y -n=test", "cinst logstitcher.install -y -n=test"),
+        ("cinst logstitcher -y -n=test",
+         "cinst logstitcher.install -y -n=test"),
         (
             "choco install logstitcher -y -n=test /env",
             "choco install logstitcher.install -y -n=test /env",

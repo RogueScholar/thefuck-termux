@@ -4,11 +4,8 @@ from thefuck.rules.yarn_command_replaced import get_new_command
 from thefuck.rules.yarn_command_replaced import match
 from thefuck.types import Command
 
-
-output = (
-    "error `install` has been replaced with `add` to add new "
-    'dependencies. Run "yarn add {}" instead.'
-).format
+output = ("error `install` has been replaced with `add` to add new "
+          'dependencies. Run "yarn add {}" instead.').format
 
 
 @pytest.mark.parametrize(

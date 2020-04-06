@@ -38,35 +38,29 @@ class Zsh(Generic):
         """.format(
             name=alias_name,
             argument_placeholder=ARGUMENT_PLACEHOLDER,
-            alter_history=(
-                'test -n "$TF_CMD" && print -s $TF_CMD'
-                if settings.alter_history
-                else ""
-            ),
+            alter_history=('test -n "$TF_CMD" && print -s $TF_CMD'
+                           if settings.alter_history else ""),
         )
 
     def instant_mode_alias(self, alias_name):
         if os.environ.get("THEFUCK_INSTANT_MODE", "").lower() == "true":
-            mark = "%{" + USER_COMMAND_MARK + "\b" * len(USER_COMMAND_MARK) + "%}"
+            mark = "%{" + USER_COMMAND_MARK + "\b" * len(
+                USER_COMMAND_MARK) + "%}"
             return """
                 export PS1="{user_command_mark}$PS1";
                 {app_alias}
-            """.format(
-                user_command_mark=mark, app_alias=self.app_alias(alias_name)
-            )
+            """.format(user_command_mark=mark,
+                       app_alias=self.app_alias(alias_name))
         else:
             log_path = os.path.join(
-                gettempdir(), "thefuck-script-log-{}".format(uuid4().hex)
-            )
+                gettempdir(), "thefuck-script-log-{}".format(uuid4().hex))
             return """
                 export THEFUCK_INSTANT_MODE=True;
                 export THEFUCK_OUTPUT_LOG={log};
                 thefuck --shell-logger {log};
                 rm -f {log};
                 exit
-            """.format(
-                log=log_path
-            )
+            """.format(log=log_path)
 
     def _parse_alias(self, alias):
         name, value = alias.split("=", 1)
@@ -78,8 +72,8 @@ class Zsh(Generic):
     def get_aliases(self):
         raw_aliases = os.environ.get("TF_SHELL_ALIASES", "").split("\n")
         return dict(
-            self._parse_alias(alias) for alias in raw_aliases if alias and "=" in alias
-        )
+            self._parse_alias(alias) for alias in raw_aliases
+            if alias and "=" in alias)
 
     def _get_history_file_name(self):
         return os.environ.get("HISTFILE", os.path.expanduser("~/.zsh_history"))
@@ -102,5 +96,7 @@ class Zsh(Generic):
 
     def _get_version(self):
         """Returns the version of the current shell"""
-        proc = Popen(["zsh", "-c", "echo $ZSH_VERSION"], stdout=PIPE, stderr=DEVNULL)
+        proc = Popen(["zsh", "-c", "echo $ZSH_VERSION"],
+                     stdout=PIPE,
+                     stderr=DEVNULL)
         return proc.stdout.read().decode("utf-8").strip()

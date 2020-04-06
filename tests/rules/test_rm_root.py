@@ -22,4 +22,5 @@ def test_not_match(command):
 
 
 def test_get_new_command():
-    assert get_new_command(Command("rm -rf /", "")) == "rm -rf / --no-preserve-root"
+    assert get_new_command(Command("rm -rf /",
+                                   "")) == "rm -rf / --no-preserve-root"

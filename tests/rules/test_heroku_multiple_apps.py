@@ -5,7 +5,6 @@ from thefuck.rules.heroku_multiple_apps import get_new_command
 from thefuck.rules.heroku_multiple_apps import match
 from thefuck.types import Command
 
-
 suggest_output = """
  ▸    Multiple apps in git remotes
  ▸    Usage: --remote heroku-dev
@@ -48,8 +47,8 @@ def test_not_match(script, output):
 
 
 @pytest.mark.parametrize(
-    "cmd, result", [("pg", ["heroku pg --app myapp", "heroku pg --app myapp-dev"])]
-)
+    "cmd, result",
+    [("pg", ["heroku pg --app myapp", "heroku pg --app myapp-dev"])])
 def test_get_new_command(cmd, result):
     command = Command("heroku {}".format(cmd), suggest_output)
     assert get_new_command(command) == result

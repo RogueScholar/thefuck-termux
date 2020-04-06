@@ -8,13 +8,10 @@ from setuptools import setup
 
 import fastentrypoints
 
-
 try:
     if int(pkg_resources.get_distribution("pip").version.split(".")[0]) < 6:
-        print(
-            "pip older than 6.0 not supported, please upgrade pip with:\n\n"
-            "    pip install -U pip"
-        )
+        print("pip older than 6.0 not supported, please upgrade pip with:\n\n"
+              "    pip install -U pip")
         sys.exit(-1)
 except pkg_resources.DistributionNotFound:
     pass
@@ -28,16 +25,12 @@ else:
 
 version = sys.version_info[:2]
 if version < (2, 7):
-    print(
-        "thefuck requires Python version 2.7 or later"
-        + " ({}.{} detected).".format(*version)
-    )
+    print("thefuck requires Python version 2.7 or later" +
+          " ({}.{} detected).".format(*version))
     sys.exit(-1)
 elif (3, 0) < version < (3, 5):
-    print(
-        "thefuck requires Python version 3.5 or later"
-        + " ({}.{} detected).".format(*version)
-    )
+    print("thefuck requires Python version 3.5 or later" +
+          " ({}.{} detected).".format(*version))
     sys.exit(-1)
 
 VERSION = "3.30"
@@ -59,8 +52,7 @@ setup(
     url="https://github.com/nvbn/thefuck",
     license="MIT",
     packages=find_packages(
-        exclude=["ez_setup", "examples", "tests", "tests.*", "release"]
-    ),
+        exclude=["ez_setup", "examples", "tests", "tests.*", "release"]),
     include_package_data=True,
     zip_safe=False,
     install_requires=install_requires,

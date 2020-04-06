@@ -9,8 +9,7 @@ error_pattern2 = "fatal: option '(.*?)' must come before non-option arguments"
 @git_support
 def match(command):
     return re.search(error_pattern, command.output) or re.search(
-        error_pattern2, command.output
-    )
+        error_pattern2, command.output)
 
 
 @git_support

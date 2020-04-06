@@ -24,12 +24,30 @@ from thefuck.utils import replace_argument
 @pytest.mark.parametrize(
     "override, old, new",
     [
-        ({"key": "val"}, {}, {"key": "val"}),
-        ({"key": "new-val"}, {"key": "val"}, {"key": "val"}),
+        ({
+            "key": "val"
+        }, {}, {
+            "key": "val"
+        }),
+        ({
+            "key": "new-val"
+        }, {
+            "key": "val"
+        }, {
+            "key": "val"
+        }),
         (
-            {"key": "new-val", "unset": "unset"},
-            {"key": "val"},
-            {"key": "val", "unset": "unset"},
+            {
+                "key": "new-val",
+                "unset": "unset"
+            },
+            {
+                "key": "val"
+            },
+            {
+                "key": "val",
+                "unset": "unset"
+            },
         ),
     ],
 )
@@ -65,7 +83,8 @@ class TestGetClosest(object):
         assert "status" == get_closest("st", ["status", "reset"])
 
     def test_without_fallback(self):
-        assert get_closest("st", ["status", "reset"], fallback_to_first=False) is None
+        assert get_closest("st", ["status", "reset"],
+                           fallback_to_first=False) is None
 
 
 class TestGetCloseMatches(object):
@@ -77,7 +96,8 @@ class TestGetCloseMatches(object):
     @patch("thefuck.utils.difflib_get_close_matches")
     def test_call_without_n(self, difflib_mock, settings):
         get_close_matches("", [])
-        assert difflib_mock.call_args[0][2] == settings.get("num_close_matches")
+        assert difflib_mock.call_args[0][2] == settings.get(
+            "num_close_matches")
 
 
 @pytest.fixture
@@ -107,12 +127,14 @@ def os_environ_pathsep(monkeypatch, path, pathsep):
 @pytest.mark.usefixtures("no_memoize", "os_environ_pathsep")
 @pytest.mark.parametrize(
     "path, pathsep",
-    [("/foo:/bar:/baz:/foo/bar", ":"), (r"C:\\foo;C:\\bar;C:\\baz;C:\\foo\\bar", ";")],
+    [("/foo:/bar:/baz:/foo/bar", ":"),
+     (r"C:\\foo;C:\\bar;C:\\baz;C:\\foo\\bar", ";")],
 )
 def test_get_all_executables_pathsep(path, pathsep):
     with patch("thefuck.utils.Path") as Path_mock:
         get_all_executables()
-        Path_mock.assert_has_calls([call(p) for p in path.split(pathsep)], True)
+        Path_mock.assert_has_calls([call(p) for p in path.split(pathsep)],
+                                   True)
 
 
 @pytest.mark.parametrize(
@@ -130,40 +152,34 @@ def test_replace_argument(args, result):
     "stderr, result",
     [
         (
-            (
-                "git: 'cone' is not a git command. See 'git --help'.\n"
-                "\n"
-                "Did you mean one of these?\n"
-                "\tclone"
-            ),
+            ("git: 'cone' is not a git command. See 'git --help'.\n"
+             "\n"
+             "Did you mean one of these?\n"
+             "\tclone"),
             ["clone"],
         ),
         (
-            (
-                "git: 're' is not a git command. See 'git --help'.\n"
-                "\n"
-                "Did you mean one of these?\n"
-                "\trebase\n"
-                "\treset\n"
-                "\tgrep\n"
-                "\trm"
-            ),
+            ("git: 're' is not a git command. See 'git --help'.\n"
+             "\n"
+             "Did you mean one of these?\n"
+             "\trebase\n"
+             "\treset\n"
+             "\tgrep\n"
+             "\trm"),
             ["rebase", "reset", "grep", "rm"],
         ),
         (
-            (
-                'tsuru: "target" is not a tsuru command. See "tsuru help".\n'
-                "\n"
-                "Did you mean one of these?\n"
-                "\tservice-add\n"
-                "\tservice-bind\n"
-                "\tservice-doc\n"
-                "\tservice-info\n"
-                "\tservice-list\n"
-                "\tservice-remove\n"
-                "\tservice-status\n"
-                "\tservice-unbind"
-            ),
+            ('tsuru: "target" is not a tsuru command. See "tsuru help".\n'
+             "\n"
+             "Did you mean one of these?\n"
+             "\tservice-add\n"
+             "\tservice-bind\n"
+             "\tservice-doc\n"
+             "\tservice-info\n"
+             "\tservice-list\n"
+             "\tservice-remove\n"
+             "\tservice-status\n"
+             "\tservice-unbind"),
             [
                 "service-add",
                 "service-bind",

@@ -14,15 +14,13 @@ def envs(mocker):
 
 
 @pytest.mark.parametrize(
-    "script", ["workon tehfuck", "workon code-view", "workon new-env"]
-)
+    "script", ["workon tehfuck", "workon code-view", "workon new-env"])
 def test_match(script):
     assert match(Command(script, ""))
 
 
 @pytest.mark.parametrize(
-    "script", ["workon thefuck", "workon code_view", "work on tehfuck"]
-)
+    "script", ["workon thefuck", "workon code_view", "work on tehfuck"])
 def test_not_match(script):
     assert not match(Command(script, ""))
 

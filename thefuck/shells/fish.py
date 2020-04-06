@@ -46,8 +46,8 @@ class Fish(Generic):
 
     def _get_overridden_aliases(self):
         overridden = os.environ.get(
-            "THEFUCK_OVERRIDDEN_ALIASES", os.environ.get("TF_OVERRIDDEN_ALIASES", "")
-        )
+            "THEFUCK_OVERRIDDEN_ALIASES",
+            os.environ.get("TF_OVERRIDDEN_ALIASES", ""))
         default = {"cd", "grep", "ls", "man", "open"}
         for alias in overridden.split(","):
             default.add(alias.strip())
@@ -55,11 +55,9 @@ class Fish(Generic):
 
     def app_alias(self, alias_name):
         if settings.alter_history:
-            alter_history = (
-                "    builtin history delete --exact"
-                " --case-sensitive -- $fucked_up_command\n"
-                "    builtin history merge ^ /dev/null\n"
-            )
+            alter_history = ("    builtin history delete --exact"
+                             " --case-sensitive -- $fucked_up_command\n"
+                             "    builtin history merge ^ /dev/null\n")
         else:
             alter_history = ""
         # It is VERY important to have the variables declared WITHIN the alias
@@ -71,8 +69,7 @@ class Fish(Generic):
             '  if [ "$unfucked_command" != "" ]\n'
             "    eval $unfucked_command\n{1}"
             "  end\n"
-            "end"
-        ).format(alias_name, alter_history, ARGUMENT_PLACEHOLDER)
+            "end").format(alias_name, alter_history, ARGUMENT_PLACEHOLDER)
 
     def get_aliases(self):
         overridden = self._get_overridden_aliases()

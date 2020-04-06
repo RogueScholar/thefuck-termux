@@ -11,14 +11,10 @@ from thefuck.utils import replace_command
 
 
 def match(command):
-    return (
-        command.script_parts
-        and (
-            command.script_parts[0] in ("pacman", "yay", "yaourt")
-            or command.script_parts[0:2] == ["sudo", "pacman"]
-        )
-        and "error: target not found:" in command.output
-    )
+    return (command.script_parts
+            and (command.script_parts[0] in ("pacman", "yay", "yaourt")
+                 or command.script_parts[0:2] == ["sudo", "pacman"])
+            and "error: target not found:" in command.output)
 
 
 def get_new_command(command):

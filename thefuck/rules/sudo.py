@@ -28,11 +28,8 @@ patterns = [
 
 
 def match(command):
-    if (
-        command.script_parts
-        and "&&" not in command.script_parts
-        and command.script_parts[0] == "sudo"
-    ):
+    if (command.script_parts and "&&" not in command.script_parts
+            and command.script_parts[0] == "sudo"):
         return False
 
     for pattern in patterns:
@@ -43,9 +40,8 @@ def match(command):
 
 def get_new_command(command):
     if "&&" in command.script:
-        return u'sudo sh -c "{}"'.format(
-            " ".join([part for part in command.script_parts if part != "sudo"])
-        )
+        return u'sudo sh -c "{}"'.format(" ".join(
+            [part for part in command.script_parts if part != "sudo"]))
     elif ">" in command.script:
         return u'sudo sh -c "{}"'.format(command.script.replace('"', '\\"'))
     else:

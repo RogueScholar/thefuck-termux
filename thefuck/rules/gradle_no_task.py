@@ -28,7 +28,8 @@ def _get_all_tasks(gradle):
             should_yield = False
             continue
 
-        if should_yield and not line.startswith("All tasks runnable from root project"):
+        if should_yield and not line.startswith(
+                "All tasks runnable from root project"):
             yield line.split(" ")[0]
 
 

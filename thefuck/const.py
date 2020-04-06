@@ -37,11 +37,16 @@ DEFAULT_SETTINGS = {
     "history_limit": None,
     "alter_history": True,
     "wait_slow_command": 15,
-    "slow_commands": ["lein", "react-native", "gradle", "./gradlew", "vagrant"],
+    "slow_commands":
+    ["lein", "react-native", "gradle", "./gradlew", "vagrant"],
     "repeat": False,
     "instant_mode": False,
     "num_close_matches": 3,
-    "env": {"LC_ALL": "C", "LANG": "C", "GIT_TRACE": "1"},
+    "env": {
+        "LC_ALL": "C",
+        "LANG": "C",
+        "GIT_TRACE": "1"
+    },
 }
 
 ENV_TO_ATTR = {

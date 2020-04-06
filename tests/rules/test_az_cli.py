@@ -4,12 +4,10 @@ from thefuck.rules.az_cli import get_new_command
 from thefuck.rules.az_cli import match
 from thefuck.types import Command
 
-
 no_suggestions = """\
 az provider: error: the following arguments are required: _subcommand
 usage: az provider [-h] {list,show,register,unregister,operation} ...
 """
-
 
 misspelled_command = """\
 az: 'providers' is not in the 'az' command group. See 'az --help'.
@@ -44,8 +42,10 @@ def test_not_match():
 @pytest.mark.parametrize(
     "command, result",
     [
-        (Command("az providers list", misspelled_command), ["az provider list"]),
-        (Command("az provider lis", misspelled_subcommand), ["az provider list"]),
+        (Command("az providers list",
+                 misspelled_command), ["az provider list"]),
+        (Command("az provider lis",
+                 misspelled_subcommand), ["az provider list"]),
     ],
 )
 def test_get_new_command(command, result):

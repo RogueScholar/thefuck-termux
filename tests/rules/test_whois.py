@@ -29,10 +29,14 @@ def test_not_match():
             Command("whois https://en.wikipedia.org/wiki/Main_Page", ""),
             "whois en.wikipedia.org",
         ),
-        (Command("whois https://en.wikipedia.org/", ""), "whois en.wikipedia.org"),
+        (Command("whois https://en.wikipedia.org/",
+                 ""), "whois en.wikipedia.org"),
         (
             Command("whois meta.unix.stackexchange.com", ""),
-            ["whois unix.stackexchange.com", "whois stackexchange.com", "whois com"],
+            [
+                "whois unix.stackexchange.com", "whois stackexchange.com",
+                "whois com"
+            ],
         ),
     ],
 )

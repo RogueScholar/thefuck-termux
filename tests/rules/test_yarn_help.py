@@ -53,12 +53,10 @@ def test_match(command):
 
 @pytest.mark.parametrize(
     "command, url",
-    [
-        (
-            Command("yarn help clean", output_clean),
-            "https://yarnpkg.com/en/docs/cli/clean",
-        )
-    ],
+    [(
+        Command("yarn help clean", output_clean),
+        "https://yarnpkg.com/en/docs/cli/clean",
+    )],
 )
 def test_get_new_command(command, url):
     assert get_new_command(command) == open_command(url)

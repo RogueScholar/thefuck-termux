@@ -34,8 +34,8 @@ def test_match(command):
 
 
 @pytest.mark.parametrize(
-    "command", [Command("gulp extenson", output), Command("fab deloyp", "")]
-)
+    "command", [Command("gulp extenson", output),
+                Command("fab deloyp", "")])
 def test_not_match(command):
     assert not match(command)
 

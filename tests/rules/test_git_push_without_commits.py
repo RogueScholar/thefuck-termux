@@ -19,7 +19,10 @@ def test_match(command):
 
 @pytest.mark.parametrize(
     "command, result",
-    [(Command(command, expected_error), fix.format(command=command),)],
+    [(
+        Command(command, expected_error),
+        fix.format(command=command),
+    )],
 )
 def test_get_new_command(command, result):
     assert get_new_command(command) == result

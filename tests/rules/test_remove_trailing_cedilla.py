@@ -8,7 +8,8 @@ from thefuck.types import Command
 
 @pytest.mark.parametrize(
     "command",
-    [Command("wrong" + CEDILLA, ""), Command("wrong with args" + CEDILLA, "")],
+    [Command("wrong" + CEDILLA, ""),
+     Command("wrong with args" + CEDILLA, "")],
 )
 def test_match(command):
     assert match(command)

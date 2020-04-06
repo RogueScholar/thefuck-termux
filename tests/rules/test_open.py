@@ -30,7 +30,8 @@ def test_is_arg_url(script):
     assert is_arg_url(Command(script, ""))
 
 
-@pytest.mark.parametrize("script", ["open foo", "open bar.txt", "open egg.doc"])
+@pytest.mark.parametrize("script",
+                         ["open foo", "open bar.txt", "open egg.doc"])
 def test_not_is_arg_url(script):
     assert not is_arg_url(Command(script, ""))
 
@@ -56,7 +57,8 @@ def test_match(script, output):
         ("xdg-open foo.io", ["xdg-open http://foo.io"]),
         ("gnome-open foo.io", ["gnome-open http://foo.io"]),
         ("kde-open foo.io", ["kde-open http://foo.io"]),
-        ("open nonest", ["touch nonest && open nonest", "mkdir nonest && open nonest"]),
+        ("open nonest",
+         ["touch nonest && open nonest", "mkdir nonest && open nonest"]),
     ],
 )
 def test_get_new_command(script, new_command, output):

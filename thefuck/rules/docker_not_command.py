@@ -14,9 +14,8 @@ from thefuck.utils import which
 @sudo_support
 @for_app("docker")
 def match(command):
-    return (
-        "is not a docker command" in command.output or "Usage:	docker" in command.output
-    )
+    return ("is not a docker command" in command.output
+            or "Usage:	docker" in command.output)
 
 
 def _parse_commands(lines, starts_with):
@@ -27,7 +26,9 @@ def _parse_commands(lines, starts_with):
 
 
 def get_docker_commands():
-    proc = subprocess.Popen("docker", stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    proc = subprocess.Popen("docker",
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE)
 
     # Old version docker returns its output to stdout, while newer version returns to stderr.
     lines = proc.stdout.readlines() or proc.stderr.readlines()
@@ -49,12 +50,11 @@ if which("docker"):
 @sudo_support
 def get_new_command(command):
     if "Usage:" in command.output and len(command.script_parts) > 1:
-        management_subcommands = _parse_commands(
-            command.output.split("\n"), "Commands:"
-        )
-        return replace_command(command, command.script_parts[2], management_subcommands)
+        management_subcommands = _parse_commands(command.output.split("\n"),
+                                                 "Commands:")
+        return replace_command(command, command.script_parts[2],
+                               management_subcommands)
 
-    wrong_command = re.findall(
-        r"docker: '(\w+)' is not a docker command.", command.output
-    )[0]
+    wrong_command = re.findall(r"docker: '(\w+)' is not a docker command.",
+                               command.output)[0]
     return replace_command(command, wrong_command, get_docker_commands())

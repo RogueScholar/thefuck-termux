@@ -7,7 +7,6 @@ from thefuck.rules.dnf_no_such_command import get_new_command
 from thefuck.rules.dnf_no_such_command import match
 from thefuck.types import Command
 
-
 help_text = b"""usage: dnf [options] COMMAND
 
 List of Main Commands:
@@ -188,16 +187,14 @@ It could be a DNF plugin command, try: "dnf install 'dnf-command(%s)'"
     )
 
 
-@pytest.mark.parametrize(
-    "output", [(invalid_command("saerch")), (invalid_command("isntall"))]
-)
+@pytest.mark.parametrize("output", [(invalid_command("saerch")),
+                                    (invalid_command("isntall"))])
 def test_match(output):
     assert match(Command("dnf", output))
 
 
-@pytest.mark.parametrize(
-    "script, output", [("pip", invalid_command("isntall")), ("vim", "")]
-)
+@pytest.mark.parametrize("script, output",
+                         [("pip", invalid_command("isntall")), ("vim", "")])
 def test_not_match(script, output):
     assert not match(Command(script, output))
 

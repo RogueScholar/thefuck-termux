@@ -7,7 +7,6 @@ from thefuck.rules.fix_file import get_new_command
 from thefuck.rules.fix_file import match
 from thefuck.types import Command
 
-
 # (script, file, line, col (or None), output)
 tests = (
     (
@@ -334,9 +333,7 @@ def test_get_new_command_with_settings(mocker, monkeypatch, test, settings):
 
     if test[3]:
         assert get_new_command(cmd) == u"dummy_editor {} +{}:{} && {}".format(
-            test[1], test[2], test[3], test[0]
-        )
+            test[1], test[2], test[3], test[0])
     else:
         assert get_new_command(cmd) == u"dummy_editor {} +{} && {}".format(
-            test[1], test[2], test[0]
-        )
+            test[1], test[2], test[0])

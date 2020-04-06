@@ -100,7 +100,6 @@ source_to_target = {
         u"Ώ": "V",
     },
 }
-
 """Lists used for decomposing korean letters."""
 HEAD_LIST = [
     u"ㄱ",
@@ -241,7 +240,8 @@ def _switch(ch, layout):
 def _switch_command(command, layout):
     # Layouts with different amount of characters than English
     if layout in source_to_target:
-        return "".join(source_to_target[layout].get(ch, ch) for ch in command.script)
+        return "".join(source_to_target[layout].get(ch, ch)
+                       for ch in command.script)
 
     return "".join(_switch(ch, layout) for ch in command.script)
 
@@ -270,21 +270,18 @@ def _decompose_korean(command):
 def match(command):
     if "not found" not in command.output:
         return False
-    if any(
-        u"ㄱ" <= ch <= u"ㅎ" or u"ㅏ" <= ch <= u"ㅣ" or u"가" <= ch <= u"힣"
-        for ch in command.script
-    ):
+    if any(u"ㄱ" <= ch <= u"ㅎ" or u"ㅏ" <= ch <= u"ㅣ" or u"가" <= ch <= u"힣"
+           for ch in command.script):
         return True
 
     matched_layout = _get_matched_layout(command)
-    return matched_layout and _switch_command(command, matched_layout) != get_alias()
+    return matched_layout and _switch_command(command,
+                                              matched_layout) != get_alias()
 
 
 def get_new_command(command):
-    if any(
-        u"ㄱ" <= ch <= u"ㅎ" or u"ㅏ" <= ch <= u"ㅣ" or u"가" <= ch <= u"힣"
-        for ch in command.script
-    ):
+    if any(u"ㄱ" <= ch <= u"ㅎ" or u"ㅏ" <= ch <= u"ㅣ" or u"가" <= ch <= u"힣"
+           for ch in command.script):
         command.script = _decompose_korean(command)
     matched_layout = _get_matched_layout(command)
     return _switch_command(command, matched_layout)

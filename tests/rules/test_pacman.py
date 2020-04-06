@@ -6,7 +6,6 @@ from thefuck.rules.pacman import get_new_command
 from thefuck.rules.pacman import match
 from thefuck.types import Command
 
-
 pacman_cmd = getattr(pacman, "pacman", "pacman")
 
 PKGFILE_OUTPUT_SUDO = "core/sudo 1.8.13-13/usr/bin/sudo"
@@ -38,7 +37,8 @@ def test_match(command):
     "command, return_value",
     [
         (Command("vim", "vim: command not found"), PKGFILE_OUTPUT_VIM),
-        (Command("sudo vim", "sudo: vim: command not found"), PKGFILE_OUTPUT_VIM),
+        (Command("sudo vim",
+                 "sudo: vim: command not found"), PKGFILE_OUTPUT_VIM),
     ],
 )
 @patch("thefuck.specific.archlinux.subprocess")
@@ -50,7 +50,12 @@ def test_match_mocked(subp_mock, command, return_value):
 
 @pytest.mark.parametrize(
     "command",
-    [Command("vim", ""), Command("", ""), Command("sudo vim", ""), Command("", "")],
+    [
+        Command("vim", ""),
+        Command("", ""),
+        Command("sudo vim", ""),
+        Command("", "")
+    ],
 )
 def test_not_match(command):
     assert not match(command)

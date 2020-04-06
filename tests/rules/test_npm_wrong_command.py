@@ -35,8 +35,8 @@ npm@2.14.7 /opt/node/lib/node_modules/npm
 
 
 @pytest.mark.parametrize(
-    "script", ["npm urgrdae", "npm urgrade -g", "npm -f urgrade -g", "npm urg"]
-)
+    "script",
+    ["npm urgrdae", "npm urgrade -g", "npm -f urgrade -g", "npm urg"])
 def test_match(script):
     assert match(Command(script, output))
 

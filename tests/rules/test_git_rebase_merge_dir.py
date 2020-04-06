@@ -15,13 +15,11 @@ def output():
         "If that is not the case, please\n"
         '\trm -fr "/foo/bar/baz/egg/.git/rebase-merge"\n'
         "and run me again.  I am stopping in case you still have something\n"
-        "valuable there.\n"
-    )
+        "valuable there.\n")
 
 
 @pytest.mark.parametrize(
-    "script", ["git rebase master", "git rebase -skip", "git rebase"]
-)
+    "script", ["git rebase master", "git rebase -skip", "git rebase"])
 def test_match(output, script):
     assert match(Command(script, output))
 

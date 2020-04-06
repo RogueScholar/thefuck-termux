@@ -2,7 +2,6 @@ import re
 
 from thefuck.shells import shell
 
-
 patterns = (
     r"mv: cannot move '[^']*' to '([^']*)': No such file or directory",
     r"mv: cannot move '[^']*' to '([^']*)': Not a directory",
@@ -25,7 +24,7 @@ def get_new_command(command):
 
         if file:
             file = file[0]
-            dir = file[0 : file.rfind("/")]
+            dir = file[0:file.rfind("/")]
 
             formatme = shell.and_("mkdir -p {}", "{}")
             return formatme.format(dir, command.script)

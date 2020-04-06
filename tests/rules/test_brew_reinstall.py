@@ -4,11 +4,8 @@ from thefuck.rules.brew_reinstall import get_new_command
 from thefuck.rules.brew_reinstall import match
 from thefuck.types import Command
 
-
-output = (
-    "Warning: thefuck 9.9 is already installed and up-to-date\nTo "
-    "reinstall 9.9, run `brew reinstall thefuck`"
-)
+output = ("Warning: thefuck 9.9 is already installed and up-to-date\nTo "
+          "reinstall 9.9, run `brew reinstall thefuck`")
 
 
 def test_match():
@@ -16,7 +13,8 @@ def test_match():
     assert match(command)
 
 
-@pytest.mark.parametrize("script", ["brew reinstall thefuck", "brew install foo"])
+@pytest.mark.parametrize("script",
+                         ["brew reinstall thefuck", "brew install foo"])
 def test_not_match(script):
     assert not match(Command(script, ""))
 

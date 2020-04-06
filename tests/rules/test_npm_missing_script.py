@@ -72,7 +72,8 @@ def test_not_match(command):
     "script, output, result",
     [
         ("npm ru wach-tests", output("wach-tests"), "npm ru watch-test"),
-        ("npm -i run-script dvelop", output("dvelop"), "npm -i run-script develop"),
+        ("npm -i run-script dvelop", output("dvelop"),
+         "npm -i run-script develop"),
         (
             "npm -i run-script buld -X POST",
             output("buld"),

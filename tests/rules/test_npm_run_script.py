@@ -85,7 +85,8 @@ def test_not_match(run_script, command, run_script_out):
     [
         ("npm watch-test", "npm run-script watch-test"),
         ("npm -i develop", "npm run-script -i develop"),
-        ("npm -i watch-script --path ..", "npm run-script -i watch-script --path .."),
+        ("npm -i watch-script --path ..",
+         "npm run-script -i watch-script --path .."),
     ],
 )
 def test_get_new_command(script, result):

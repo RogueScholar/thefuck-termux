@@ -4,18 +4,13 @@ from thefuck.rules.git_stash import get_new_command
 from thefuck.rules.git_stash import match
 from thefuck.types import Command
 
-
 cherry_pick_error = (
     "error: Your local changes would be overwritten by cherry-pick.\n"
     "hint: Commit your changes or stash them to proceed.\n"
-    "fatal: cherry-pick failed"
-)
+    "fatal: cherry-pick failed")
 
-
-rebase_error = (
-    "Cannot rebase: Your index contains uncommitted changes.\n"
-    "Please commit or stash them."
-)
+rebase_error = ("Cannot rebase: Your index contains uncommitted changes.\n"
+                "Please commit or stash them.")
 
 
 @pytest.mark.parametrize(
@@ -31,7 +26,10 @@ def test_match(command):
 
 @pytest.mark.parametrize(
     "command",
-    [Command("git cherry-pick a1b2c3d", ""), Command("git rebase -i HEAD~7", "")],
+    [
+        Command("git cherry-pick a1b2c3d", ""),
+        Command("git rebase -i HEAD~7", "")
+    ],
 )
 def test_not_match(command):
     assert not match(command)

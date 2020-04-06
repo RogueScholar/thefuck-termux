@@ -31,7 +31,8 @@ def test_not_match(script, output):
     "script, output, new_command",
     [
         ("git help st", "`git st' is aliased to `status'", "git help status"),
-        ("git help ds", "`git ds' is aliased to `diff --staged'", "git help diff"),
+        ("git help ds", "`git ds' is aliased to `diff --staged'",
+         "git help diff"),
     ],
 )
 def test_get_new_command(script, output, new_command):

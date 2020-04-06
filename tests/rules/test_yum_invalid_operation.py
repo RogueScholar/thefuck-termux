@@ -166,18 +166,31 @@ yum_operations = [
 ]
 
 
-@pytest.mark.parametrize("command", ["saerch", "uninstall",])
+@pytest.mark.parametrize("command", [
+    "saerch",
+    "uninstall",
+])
 def test_match(command):
-    assert match(Command("yum {}".format(command), yum_invalid_op_text.format(command)))
+    assert match(
+        Command("yum {}".format(command), yum_invalid_op_text.format(command)))
 
 
 @pytest.mark.parametrize(
     "command, output",
     [
         ("vim", ""),
-        ("yum", yum_help_text,),
-        ("yum help", yum_help_text,),
-        ("yum search asdf", yum_unsuccessful_search_text.format("asdf"),),
+        (
+            "yum",
+            yum_help_text,
+        ),
+        (
+            "yum help",
+            yum_help_text,
+        ),
+        (
+            "yum search asdf",
+            yum_unsuccessful_search_text.format("asdf"),
+        ),
         ("yum search vim", yum_successful_vim_search_text),
     ],
 )
@@ -201,9 +214,21 @@ def test_get_operations():
 @pytest.mark.parametrize(
     "script, output, result",
     [
-        ("yum uninstall", yum_invalid_op_text.format("uninstall"), "yum remove",),
-        ("yum saerch asdf", yum_invalid_op_text.format("saerch"), "yum search asdf",),
-        ("yum hlep", yum_invalid_op_text.format("hlep"), "yum help",),
+        (
+            "yum uninstall",
+            yum_invalid_op_text.format("uninstall"),
+            "yum remove",
+        ),
+        (
+            "yum saerch asdf",
+            yum_invalid_op_text.format("saerch"),
+            "yum search asdf",
+        ),
+        (
+            "yum hlep",
+            yum_invalid_op_text.format("hlep"),
+            "yum help",
+        ),
     ],
 )
 def test_get_new_command(script, output, result):

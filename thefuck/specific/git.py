@@ -17,9 +17,8 @@ def git_support(fn, command):
 
     # perform git aliases expansion
     if "trace: alias expansion:" in command.output:
-        search = re.search(
-            "trace: alias expansion: ([^ ]*) => ([^\n]*)", command.output
-        )
+        search = re.search("trace: alias expansion: ([^ ]*) => ([^\n]*)",
+                           command.output)
         alias = search.group(1)
 
         # by default git quotes everything, for example:
@@ -27,8 +26,7 @@ def git_support(fn, command):
         # which is surprising and does not allow to easily test for
         # eg. 'git commit'
         expansion = " ".join(
-            shell.quote(part) for part in shell.split_command(search.group(2))
-        )
+            shell.quote(part) for part in shell.split_command(search.group(2)))
         new_script = command.script.replace(alias, expansion)
 
         command = command.update(script=new_script)

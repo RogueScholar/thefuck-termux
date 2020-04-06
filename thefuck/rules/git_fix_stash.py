@@ -12,13 +12,16 @@ def match(command):
 
 
 # git's output here is too complicated to be parsed (see the test file)
-stash_commands = ("apply", "branch", "clear", "drop", "list", "pop", "save", "show")
+stash_commands = ("apply", "branch", "clear", "drop", "list", "pop", "save",
+                  "show")
 
 
 @git_support
 def get_new_command(command):
     stash_cmd = command.script_parts[2]
-    fixed = utils.get_closest(stash_cmd, stash_commands, fallback_to_first=False)
+    fixed = utils.get_closest(stash_cmd,
+                              stash_commands,
+                              fallback_to_first=False)
 
     if fixed is not None:
         return replace_argument(command.script, stash_cmd, fixed)

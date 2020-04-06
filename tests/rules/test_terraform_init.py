@@ -10,7 +10,8 @@ from thefuck.types import Command
     [
         (
             "terraform plan",
-            "Error: Initialization required. " "Please see the error message above.",
+            "Error: Initialization required. "
+            "Please see the error message above.",
         ),
         (
             "terraform plan",
@@ -19,7 +20,8 @@ from thefuck.types import Command
         ),
         (
             "terraform apply",
-            "Error: Initialization required. " "Please see the error message above.",
+            "Error: Initialization required. "
+            "Please see the error message above.",
         ),
         (
             "terraform apply",

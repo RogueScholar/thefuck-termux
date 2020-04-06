@@ -6,7 +6,6 @@ from thefuck.shells import shell
 from thefuck.utils import default_settings
 from thefuck.utils import memoize
 
-
 # order is important: only the first match is considered
 patterns = (
     # js, node:
@@ -38,11 +37,8 @@ patterns = (
 
 # for the sake of readability do not use named groups above
 def _make_pattern(pattern):
-    pattern = (
-        pattern.replace("{file}", "(?P<file>[^:\n]+)")
-        .replace("{line}", "(?P<line>[0-9]+)")
-        .replace("{col}", "(?P<col>[0-9]+)")
-    )
+    pattern = (pattern.replace("{file}", "(?P<file>[^:\n]+)").replace(
+        "{line}", "(?P<line>[0-9]+)").replace("{col}", "(?P<col>[0-9]+)"))
     return re.compile(pattern, re.MULTILINE)
 
 
@@ -64,7 +60,10 @@ def match(command):
     return _search(command.output)
 
 
-@default_settings({"fixlinecmd": u"{editor} {file} +{line}", "fixcolcmd": None})
+@default_settings({
+    "fixlinecmd": u"{editor} {file} +{line}",
+    "fixcolcmd": None
+})
 def get_new_command(command):
     m = _search(command.output)
 
@@ -78,8 +77,8 @@ def get_new_command(command):
             col=m.group("col"),
         )
     else:
-        editor_call = settings.fixlinecmd.format(
-            editor=os.environ["EDITOR"], file=m.group("file"), line=m.group("line")
-        )
+        editor_call = settings.fixlinecmd.format(editor=os.environ["EDITOR"],
+                                                 file=m.group("file"),
+                                                 line=m.group("line"))
 
     return shell.and_(editor_call, command.script)

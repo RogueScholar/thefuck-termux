@@ -12,9 +12,8 @@ from thefuck.types import Command
             "mv foo bar/foo",
             "mv: cannot move 'foo' to 'bar/foo': No such file or directory",
         ),
-        Command(
-            "mv foo bar/", "mv: cannot move 'foo' to 'bar/': No such file or directory"
-        ),
+        Command("mv foo bar/",
+                "mv: cannot move 'foo' to 'bar/': No such file or directory"),
     ],
 )
 def test_match(command):
@@ -23,7 +22,10 @@ def test_match(command):
 
 @pytest.mark.parametrize(
     "command",
-    [Command("mv foo bar/", ""), Command("mv foo bar/foo", "mv: permission denied"),],
+    [
+        Command("mv foo bar/", ""),
+        Command("mv foo bar/foo", "mv: permission denied"),
+    ],
 )
 def test_not_match(command):
     assert not match(command)

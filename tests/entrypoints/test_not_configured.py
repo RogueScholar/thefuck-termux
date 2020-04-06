@@ -44,16 +44,14 @@ def _change_tracker(usage_tracker_io, pid):
 
 @pytest.fixture(autouse=True)
 def shell_pid(mocker):
-    return mocker.patch(
-        "thefuck.entrypoints.not_configured._get_shell_pid", new_callable=MagicMock
-    )
+    return mocker.patch("thefuck.entrypoints.not_configured._get_shell_pid",
+                        new_callable=MagicMock)
 
 
 @pytest.fixture(autouse=True)
 def shell(mocker):
-    shell = mocker.patch(
-        "thefuck.entrypoints.not_configured.shell", new_callable=MagicMock
-    )
+    shell = mocker.patch("thefuck.entrypoints.not_configured.shell",
+                         new_callable=MagicMock)
     shell.get_history.return_value = []
     shell.how_to_configure.return_value = ShellConfiguration(
         content="eval $(thefuck --alias)",
@@ -66,19 +64,16 @@ def shell(mocker):
 
 @pytest.fixture(autouse=True)
 def shell_config(mocker):
-    path_mock = mocker.patch(
-        "thefuck.entrypoints.not_configured.Path", new_callable=MagicMock
-    )
-    return (
-        path_mock.return_value.expanduser.return_value.open.return_value.__enter__.return_value
-    )
+    path_mock = mocker.patch("thefuck.entrypoints.not_configured.Path",
+                             new_callable=MagicMock)
+    return (path_mock.return_value.expanduser.return_value.open.return_value.
+            __enter__.return_value)
 
 
 @pytest.fixture(autouse=True)
 def logs(mocker):
-    return mocker.patch(
-        "thefuck.entrypoints.not_configured.logs", new_callable=MagicMock
-    )
+    return mocker.patch("thefuck.entrypoints.not_configured.logs",
+                        new_callable=MagicMock)
 
 
 def test_for_generic_shell(shell, logs):
@@ -103,7 +98,8 @@ def test_on_run_after_other_commands(usage_tracker_io, shell_pid, shell, logs):
     logs.how_to_configure_alias.assert_called_once()
 
 
-def test_on_first_run_from_current_shell(usage_tracker_io, shell_pid, shell, logs):
+def test_on_first_run_from_current_shell(usage_tracker_io, shell_pid, shell,
+                                         logs):
     shell.get_history.return_value = ["fuck"]
     shell_pid.return_value = 12
     main()
@@ -123,9 +119,8 @@ def test_when_cant_configure_automatically(shell_pid, shell, logs):
     logs.how_to_configure_alias.assert_called_once()
 
 
-def test_when_already_configured(
-    usage_tracker_io, shell_pid, shell, shell_config, logs
-):
+def test_when_already_configured(usage_tracker_io, shell_pid, shell,
+                                 shell_config, logs):
     shell.get_history.return_value = ["fuck"]
     shell_pid.return_value = 12
     _change_tracker(usage_tracker_io, 12)
@@ -134,9 +129,8 @@ def test_when_already_configured(
     logs.already_configured.assert_called_once()
 
 
-def test_when_successfully_configured(
-    usage_tracker_io, shell_pid, shell, shell_config, logs
-):
+def test_when_successfully_configured(usage_tracker_io, shell_pid, shell,
+                                      shell_config, logs):
     shell.get_history.return_value = ["fuck"]
     shell_pid.return_value = 12
     _change_tracker(usage_tracker_io, 12)

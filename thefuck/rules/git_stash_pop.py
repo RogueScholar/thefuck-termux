@@ -5,11 +5,9 @@ from thefuck.specific.git import git_support
 @git_support
 def match(command):
     return (
-        "stash" in command.script
-        and "pop" in command.script
-        and "Your local changes to the following files would be overwritten by merge"
-        in command.output
-    )
+        "stash" in command.script and "pop" in command.script and
+        "Your local changes to the following files would be overwritten by merge"
+        in command.output)
 
 
 @git_support

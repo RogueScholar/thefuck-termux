@@ -5,7 +5,6 @@ from thefuck.rules.heroku_not_command import get_new_command
 from thefuck.rules.heroku_not_command import match
 from thefuck.types import Command
 
-
 suggest_output = """
  ▸    log is not a heroku command.
  ▸    Perhaps you meant logs?

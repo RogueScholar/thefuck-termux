@@ -7,15 +7,16 @@ from thefuck.types import Command
 
 @pytest.mark.parametrize(
     "script, output",
-    [("cp", "cp: directory foo does not exist\n"), ("mv", "No such file or directory")],
+    [("cp", "cp: directory foo does not exist\n"),
+     ("mv", "No such file or directory")],
 )
 def test_match(script, output):
     assert match(Command(script, output))
 
 
-@pytest.mark.parametrize(
-    "script, output", [("cp", ""), ("mv", ""), ("ls", "No such file or directory")]
-)
+@pytest.mark.parametrize("script, output",
+                         [("cp", ""), ("mv", ""),
+                          ("ls", "No such file or directory")])
 def test_not_match(script, output):
     assert not match(Command(script, output))
 
@@ -28,7 +29,8 @@ def test_not_match(script, output):
             "cp: directory foo does not exist\n",
             "mkdir -p bar/ && cp foo bar/",
         ),
-        ("mv foo bar/", "No such file or directory", "mkdir -p bar/ && mv foo bar/"),
+        ("mv foo bar/", "No such file or directory",
+         "mkdir -p bar/ && mv foo bar/"),
         (
             "cp foo bar/baz/",
             "cp: directory foo does not exist\n",

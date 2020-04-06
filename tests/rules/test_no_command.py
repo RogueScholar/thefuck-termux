@@ -27,7 +27,8 @@ def history_without_current(mocker):
     [
         ("vom file.py", "vom: not found"),
         ("fucck", "fucck: not found"),
-        ("puthon", "'puthon' is not recognized as an internal or external command"),
+        ("puthon",
+         "'puthon' is not recognized as an internal or external command"),
         ("got commit", "got: command not found"),
     ],
 )

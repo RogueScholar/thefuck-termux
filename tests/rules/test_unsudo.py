@@ -5,7 +5,8 @@ from thefuck.rules.unsudo import match
 from thefuck.types import Command
 
 
-@pytest.mark.parametrize("output", ["you cannot perform this operation as root"])
+@pytest.mark.parametrize("output",
+                         ["you cannot perform this operation as root"])
 def test_match(output):
     assert match(Command("sudo ls", output))
 
@@ -13,7 +14,8 @@ def test_match(output):
 def test_not_match():
     assert not match(Command("", ""))
     assert not match(Command("sudo ls", "Permission denied"))
-    assert not match(Command("ls", "you cannot perform this operation as root"))
+    assert not match(Command("ls",
+                             "you cannot perform this operation as root"))
 
 
 @pytest.mark.parametrize(

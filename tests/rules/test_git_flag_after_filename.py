@@ -4,17 +4,16 @@ from thefuck.rules.git_flag_after_filename import get_new_command
 from thefuck.rules.git_flag_after_filename import match
 from thefuck.types import Command
 
-command1 = Command("git log README.md -p", "fatal: bad flag '-p' used after filename")
-command2 = Command(
-    "git log README.md -p CONTRIBUTING.md", "fatal: bad flag '-p' used after filename"
-)
+command1 = Command("git log README.md -p",
+                   "fatal: bad flag '-p' used after filename")
+command2 = Command("git log README.md -p CONTRIBUTING.md",
+                   "fatal: bad flag '-p' used after filename")
 command3 = Command(
     "git log -p README.md --name-only",
     "fatal: bad flag '--name-only' used after filename",
 )
-command4 = Command(
-    "git log README.md -p", "fatal: option '-p' must come before non-option arguments"
-)
+command4 = Command("git log README.md -p",
+                   "fatal: option '-p' must come before non-option arguments")
 command5 = Command(
     "git log README.md -p CONTRIBUTING.md",
     "fatal: option '-p' must come before non-option arguments",
@@ -26,15 +25,15 @@ command6 = Command(
 
 
 @pytest.mark.parametrize(
-    "command", [command1, command2, command3, command4, command5, command6]
-)
+    "command", [command1, command2, command3, command4, command5, command6])
 def test_match(command):
     assert match(command)
 
 
 @pytest.mark.parametrize(
-    "command", [Command("git log README.md", ""), Command("git log -p README.md", "")]
-)
+    "command",
+    [Command("git log README.md", ""),
+     Command("git log -p README.md", "")])
 def test_not_match(command):
     assert not match(command)
 

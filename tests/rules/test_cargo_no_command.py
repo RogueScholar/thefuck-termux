@@ -4,7 +4,6 @@ from thefuck.rules.cargo_no_command import get_new_command
 from thefuck.rules.cargo_no_command import match
 from thefuck.types import Command
 
-
 no_such_subcommand_old = """No such subcommand
 
         Did you mean `build`?

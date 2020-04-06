@@ -166,9 +166,8 @@ def test_match(script, output):
     assert match(Command(script, output))
 
 
-@pytest.mark.parametrize(
-    "script, output", [("vim", invalid_operation("vim")), ("apt-get", "")]
-)
+@pytest.mark.parametrize("script, output", [("vim", invalid_operation("vim")),
+                                            ("apt-get", "")])
 def test_not_match(script, output):
     assert not match(Command(script, output))
 
@@ -205,7 +204,8 @@ def test_get_operations(set_help, app, help_text, operations):
             apt_get_help,
             "apt-get install vim",
         ),
-        ("apt saerch vim", invalid_operation("saerch"), apt_help, "apt search vim"),
+        ("apt saerch vim", invalid_operation("saerch"), apt_help,
+         "apt search vim"),
         (
             "apt uninstall vim",
             invalid_operation("uninstall"),

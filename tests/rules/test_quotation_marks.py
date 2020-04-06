@@ -20,7 +20,8 @@ def test_match(command):
 @pytest.mark.parametrize(
     "command, new_command",
     [
-        (Command("git commit -m 'My Message\"", ""), 'git commit -m "My Message"'),
+        (Command("git commit -m 'My Message\"",
+                 ""), 'git commit -m "My Message"'),
         (
             Command("git commit -am \"Mismatched Quotation Marks'", ""),
             'git commit -am "Mismatched Quotation Marks"',

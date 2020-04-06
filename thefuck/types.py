@@ -44,9 +44,7 @@ class Command(object):
             except Exception:
                 logs.debug(
                     u"Can't split command script {} because:\n {}".format(
-                        self, sys.exc_info()
-                    )
-                )
+                        self, sys.exc_info()))
                 self._script_parts = []
 
         return self._script_parts
@@ -58,7 +56,8 @@ class Command(object):
             return False
 
     def __repr__(self):
-        return u"Command(script={}, output={})".format(self.script, self.output)
+        return u"Command(script={}, output={})".format(self.script,
+                                                       self.output)
 
     def update(self, **kwargs):
         """Returns new command with replaced fields.
@@ -92,14 +91,14 @@ class Rule(object):
     """Rule for fixing commands."""
 
     def __init__(
-        self,
-        name,
-        match,
-        get_new_command,
-        enabled_by_default,
-        side_effect,
-        priority,
-        requires_output,
+            self,
+            name,
+            match,
+            get_new_command,
+            enabled_by_default,
+            side_effect,
+            priority,
+            requires_output,
     ):
         """Initializes rule with given fields.
 
@@ -143,19 +142,17 @@ class Rule(object):
             return False
 
     def __repr__(self):
-        return (
-            "Rule(name={}, match={}, get_new_command={}, "
-            "enabled_by_default={}, side_effect={}, "
-            "priority={}, requires_output)".format(
-                self.name,
-                self.match,
-                self.get_new_command,
-                self.enabled_by_default,
-                self.side_effect,
-                self.priority,
-                self.requires_output,
-            )
-        )
+        return ("Rule(name={}, match={}, get_new_command={}, "
+                "enabled_by_default={}, side_effect={}, "
+                "priority={}, requires_output)".format(
+                    self.name,
+                    self.match,
+                    self.get_new_command,
+                    self.enabled_by_default,
+                    self.side_effect,
+                    self.priority,
+                    self.requires_output,
+                ))
 
     @classmethod
     def from_path(cls, path):
@@ -221,7 +218,7 @@ class Rule(object):
         """
         new_commands = self.get_new_command(command)
         if not isinstance(new_commands, list):
-            new_commands = (new_commands,)
+            new_commands = (new_commands, )
         for n, new_command in enumerate(new_commands):
             yield CorrectedCommand(
                 script=new_command,
@@ -248,7 +245,8 @@ class CorrectedCommand(object):
     def __eq__(self, other):
         """Ignores `priority` field."""
         if isinstance(other, CorrectedCommand):
-            return (other.script, other.side_effect) == (self.script, self.side_effect)
+            return (other.script, other.side_effect) == (self.script,
+                                                         self.side_effect)
         else:
             return False
 
@@ -257,8 +255,7 @@ class CorrectedCommand(object):
 
     def __repr__(self):
         return u"CorrectedCommand(script={}, side_effect={}, priority={})".format(
-            self.script, self.side_effect, self.priority
-        )
+            self.script, self.side_effect, self.priority)
 
     def _get_script(self):
         """Returns fixed commands script.
@@ -288,10 +285,7 @@ class CorrectedCommand(object):
         if settings.alter_history:
             shell.put_to_history(self.script)
         # This depends on correct setting of PYTHONIOENCODING by the alias:
-        logs.debug(
-            u"PYTHONIOENCODING: {}".format(
-                os.environ.get("PYTHONIOENCODING", "!!not-set!!")
-            )
-        )
+        logs.debug(u"PYTHONIOENCODING: {}".format(
+            os.environ.get("PYTHONIOENCODING", "!!not-set!!")))
 
         print(self._get_script())

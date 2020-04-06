@@ -17,8 +17,7 @@ class TestTcsh(object):
             b"fuck\teval $(thefuck $(fc -ln -1))\n"
             b"l\tls -CF\n"
             b"la\tls -A\n"
-            b"ll\tls -alF"
-        )
+            b"ll\tls -alF")
         return mock
 
     @pytest.mark.parametrize(
@@ -64,7 +63,8 @@ class TestTcsh(object):
         config_exists.return_value = True
         assert shell.how_to_configure().can_configure_automatically
 
-    def test_how_to_configure_when_config_not_found(self, shell, config_exists):
+    def test_how_to_configure_when_config_not_found(self, shell,
+                                                    config_exists):
         config_exists.return_value = False
         assert not shell.how_to_configure().can_configure_automatically
 
@@ -75,9 +75,8 @@ class TestTcsh(object):
         assert shell.info() == "Tcsh 6.20.00"
         assert Popen.call_args[0][0] == ["tcsh", "--version"]
 
-    @pytest.mark.parametrize(
-        "side_effect, exception", [([b"\n"], IndexError), (OSError, OSError)]
-    )
+    @pytest.mark.parametrize("side_effect, exception", [([b"\n"], IndexError),
+                                                        (OSError, OSError)])
     def test_get_version_error(self, side_effect, exception, shell, Popen):
         Popen.return_value.stdout.read.side_effect = side_effect
         with pytest.raises(exception):

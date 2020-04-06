@@ -94,14 +94,16 @@ def yarn_help(mocker):
     return patch
 
 
-@pytest.mark.parametrize("command", [Command("yarn whyy webpack", output("whyy"))])
+@pytest.mark.parametrize("command",
+                         [Command("yarn whyy webpack", output("whyy"))])
 def test_match(command):
     assert match(command)
 
 
 @pytest.mark.parametrize(
-    "command", [Command("npm nuild", output("nuild")), Command("yarn install", "")]
-)
+    "command",
+    [Command("npm nuild", output("nuild")),
+     Command("yarn install", "")])
 def test_not_match(command):
     assert not match(command)
 

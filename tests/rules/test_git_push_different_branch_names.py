@@ -4,7 +4,6 @@ from thefuck.rules.git_push_different_branch_names import get_new_command
 from thefuck.rules.git_push_different_branch_names import match
 from thefuck.types import Command
 
-
 output = """fatal: The upstream branch of your current branch does not match
 the name of your current branch.  To push to the upstream branch
 on the remote, use

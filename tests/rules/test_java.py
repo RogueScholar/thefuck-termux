@@ -6,8 +6,8 @@ from thefuck.types import Command
 
 
 @pytest.mark.parametrize(
-    "command", [Command("java foo.java", ""), Command("java bar.java", "")]
-)
+    "command", [Command("java foo.java", ""),
+                Command("java bar.java", "")])
 def test_match(command):
     assert match(command)
 

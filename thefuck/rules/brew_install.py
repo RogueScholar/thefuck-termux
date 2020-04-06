@@ -27,22 +27,19 @@ def _get_similar_formula(formula_name):
 
 
 def match(command):
-    is_proper_command = (
-        "brew install" in command.script and "No available formula" in command.output
-    )
+    is_proper_command = ("brew install" in command.script
+                         and "No available formula" in command.output)
 
     if is_proper_command:
-        formula = re.findall(
-            r"Error: No available formula for ([a-z]+)", command.output
-        )[0]
+        formula = re.findall(r"Error: No available formula for ([a-z]+)",
+                             command.output)[0]
         return bool(_get_similar_formula(formula))
     return False
 
 
 def get_new_command(command):
-    not_exist_formula = re.findall(
-        r"Error: No available formula for ([a-z]+)", command.output
-    )[0]
+    not_exist_formula = re.findall(r"Error: No available formula for ([a-z]+)",
+                                   command.output)[0]
     exist_formula = _get_similar_formula(not_exist_formula)
 
     return replace_argument(command.script, not_exist_formula, exist_formula)

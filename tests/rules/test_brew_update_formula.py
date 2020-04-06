@@ -4,11 +4,8 @@ from thefuck.rules.brew_update_formula import get_new_command
 from thefuck.rules.brew_update_formula import match
 from thefuck.types import Command
 
-
-output = (
-    "Error: This command updates brew itself, and does not take formula"
-    " names.\nUse 'brew upgrade thefuck'."
-)
+output = ("Error: This command updates brew itself, and does not take formula"
+          " names.\nUse 'brew upgrade thefuck'.")
 
 
 def test_match():

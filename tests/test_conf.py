@@ -52,19 +52,17 @@ class TestSettingsFromFile(object):
 @pytest.mark.usefixture("load_source")
 class TestSettingsFromEnv(object):
     def test_from_env(self, os_environ, settings):
-        os_environ.update(
-            {
-                "THEFUCK_RULES": "bash:lisp",
-                "THEFUCK_EXCLUDE_RULES": "git:vim",
-                "THEFUCK_WAIT_COMMAND": "55",
-                "THEFUCK_REQUIRE_CONFIRMATION": "true",
-                "THEFUCK_NO_COLORS": "false",
-                "THEFUCK_PRIORITY": "bash=10:lisp=wrong:vim=15",
-                "THEFUCK_WAIT_SLOW_COMMAND": "999",
-                "THEFUCK_SLOW_COMMANDS": "lein:react-native:./gradlew",
-                "THEFUCK_NUM_CLOSE_MATCHES": "359",
-            }
-        )
+        os_environ.update({
+            "THEFUCK_RULES": "bash:lisp",
+            "THEFUCK_EXCLUDE_RULES": "git:vim",
+            "THEFUCK_WAIT_COMMAND": "55",
+            "THEFUCK_REQUIRE_CONFIRMATION": "true",
+            "THEFUCK_NO_COLORS": "false",
+            "THEFUCK_PRIORITY": "bash=10:lisp=wrong:vim=15",
+            "THEFUCK_WAIT_SLOW_COMMAND": "999",
+            "THEFUCK_SLOW_COMMANDS": "lein:react-native:./gradlew",
+            "THEFUCK_NUM_CLOSE_MATCHES": "359",
+        })
         settings.init()
         assert settings.rules == ["bash", "lisp"]
         assert settings.exclude_rules == ["git", "vim"]
@@ -92,7 +90,8 @@ def test_settings_from_args(settings):
 class TestInitializeSettingsFile(object):
     def test_ignore_if_exists(self, settings):
         settings_path_mock = Mock(is_file=Mock(return_value=True), open=Mock())
-        settings.user_dir = Mock(joinpath=Mock(return_value=settings_path_mock))
+        settings.user_dir = Mock(joinpath=Mock(
+            return_value=settings_path_mock))
         settings._init_settings_file()
         assert settings_path_mock.is_file.call_count == 1
         assert not settings_path_mock.open.called
@@ -102,12 +101,11 @@ class TestInitializeSettingsFile(object):
         settings_path_mock = Mock(
             is_file=Mock(return_value=False),
             open=Mock(
-                return_value=Mock(
-                    __exit__=lambda *args: None, __enter__=lambda *args: settings_file
-                )
-            ),
+                return_value=Mock(__exit__=lambda *args: None,
+                                  __enter__=lambda *args: settings_file)),
         )
-        settings.user_dir = Mock(joinpath=Mock(return_value=settings_path_mock))
+        settings.user_dir = Mock(joinpath=Mock(
+            return_value=settings_path_mock))
         settings._init_settings_file()
         settings_file_contents = settings_file.getvalue()
         assert settings_path_mock.is_file.call_count == 1
@@ -127,9 +125,8 @@ class TestInitializeSettingsFile(object):
         (True, "/user/test/config/", "~/.thefuck"),
     ],
 )
-def test_get_user_dir_path(
-    mocker, os_environ, settings, legacy_dir_exists, xdg_config_home, result
-):
+def test_get_user_dir_path(mocker, os_environ, settings, legacy_dir_exists,
+                           xdg_config_home, result):
     mocker.patch("thefuck.conf.Path.is_dir", return_value=legacy_dir_exists)
 
     if xdg_config_home is not None:

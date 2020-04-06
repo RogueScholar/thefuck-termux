@@ -8,7 +8,8 @@ from thefuck.types import Command
 @pytest.mark.parametrize(
     "command",
     [
-        Command("mkdir foo/bar/baz", "mkdir: foo/bar: No such file or directory"),
+        Command("mkdir foo/bar/baz",
+                "mkdir: foo/bar: No such file or directory"),
         Command(
             "./bin/hdfs dfs -mkdir foo/bar/baz",
             "mkdir: `foo/bar/baz': No such file or directory",
@@ -41,7 +42,8 @@ def test_not_match(command):
     "command, new_command",
     [
         (Command("mkdir foo/bar/baz", ""), "mkdir -p foo/bar/baz"),
-        (Command("hdfs dfs -mkdir foo/bar/baz", ""), "hdfs dfs -mkdir -p foo/bar/baz"),
+        (Command("hdfs dfs -mkdir foo/bar/baz",
+                 ""), "hdfs dfs -mkdir -p foo/bar/baz"),
         (
             Command("./bin/hdfs dfs -mkdir foo/bar/baz", ""),
             "./bin/hdfs dfs -mkdir -p foo/bar/baz",

@@ -42,15 +42,22 @@ def _args(**override):
         (["thefuck", ARGUMENT_PLACEHOLDER, "-v"], _args(version=True)),
         (["thefuck", ARGUMENT_PLACEHOLDER, "--help"], _args(help=True)),
         (
-            ["thefuck", "git", "branch", "-a", ARGUMENT_PLACEHOLDER, "-y", "-d"],
+            [
+                "thefuck", "git", "branch", "-a", ARGUMENT_PLACEHOLDER, "-y",
+                "-d"
+            ],
             _args(command=["git", "branch", "-a"], yes=True, debug=True),
         ),
         (
-            ["thefuck", "git", "branch", "-a", ARGUMENT_PLACEHOLDER, "-r", "-d"],
+            [
+                "thefuck", "git", "branch", "-a", ARGUMENT_PLACEHOLDER, "-r",
+                "-d"
+            ],
             _args(command=["git", "branch", "-a"], repeat=True, debug=True),
         ),
         (["thefuck", "-l", "/tmp/log"], _args(shell_logger="/tmp/log")),
-        (["thefuck", "--shell-logger", "/tmp/log"], _args(shell_logger="/tmp/log")),
+        (["thefuck", "--shell-logger", "/tmp/log"
+          ], _args(shell_logger="/tmp/log")),
     ],
 )
 def test_parse(argv, result):

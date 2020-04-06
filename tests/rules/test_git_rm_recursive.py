@@ -10,9 +10,8 @@ def output(target):
     return "fatal: not removing '{}' recursively without -r".format(target)
 
 
-@pytest.mark.parametrize(
-    "script, target", [("git rm foo", "foo"), ("git rm foo bar", "foo bar")]
-)
+@pytest.mark.parametrize("script, target", [("git rm foo", "foo"),
+                                            ("git rm foo bar", "foo bar")])
 def test_match(output, script, target):
     assert match(Command(script, output))
 

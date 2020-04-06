@@ -4,10 +4,8 @@ from thefuck.rules.git_merge import get_new_command
 from thefuck.rules.git_merge import match
 from thefuck.types import Command
 
-
-output = (
-    "merge: local - not something we can merge\n\n" "Did you mean this?\n\tremote/local"
-)
+output = ("merge: local - not something we can merge\n\n"
+          "Did you mean this?\n\tremote/local")
 
 
 def test_match():

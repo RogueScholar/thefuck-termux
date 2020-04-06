@@ -8,7 +8,6 @@ from tests.functional.plots import select_command_with_arrows
 from tests.functional.plots import with_confirmation
 from tests.functional.plots import without_confirmation
 
-
 python_3 = (
     "thefuck/python3-zsh",
     u"""FROM python:3
@@ -25,7 +24,6 @@ python_2 = (
     u"sh",
 )
 
-
 init_zshrc = u"""echo '
 export SHELL=/usr/bin/zsh
 export HISTFILE=~/.zsh_history
@@ -38,15 +36,16 @@ echo "instant mode ready: $THEFUCK_INSTANT_MODE"
 ' > ~/.zshrc"""
 
 
-@pytest.fixture(params=[(python_3, False), (python_3, True), (python_2, False)])
+@pytest.fixture(params=[(python_3, False), (python_3, True),
+                        (python_2, False)])
 def proc(request, spawnu, TIMEOUT):
     container, instant_mode = request.param
     proc = spawnu(*container)
     proc.sendline(u"pip install /src")
     assert proc.expect([TIMEOUT, u"Successfully installed"])
     proc.sendline(
-        init_zshrc.format(u"--enable-experimental-instant-mode" if instant_mode else "")
-    )
+        init_zshrc.format(
+            u"--enable-experimental-instant-mode" if instant_mode else ""))
     proc.sendline(u"zsh")
     if instant_mode:
         assert proc.expect([TIMEOUT, u"instant mode ready: True"])

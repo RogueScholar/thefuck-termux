@@ -16,8 +16,7 @@ MAX_ALLOWED_DIFF = 0.6
 def _get_sub_dirs(parent):
     """Returns a list of the child directories of the given parent directory"""
     return [
-        child
-        for child in os.listdir(parent)
+        child for child in os.listdir(parent)
         if os.path.isdir(os.path.join(parent, child))
     ]
 
@@ -26,13 +25,11 @@ def _get_sub_dirs(parent):
 @for_app("cd")
 def match(command):
     """Match function copied from cd_mkdir.py"""
-    return command.script.startswith("cd ") and any(
-        (
-            "no such file or directory" in command.output.lower(),
-            "cd: can't cd to" in command.output.lower(),
-            "does not exist" in command.output.lower(),
-        )
-    )
+    return command.script.startswith("cd ") and any((
+        "no such file or directory" in command.output.lower(),
+        "cd: can't cd to" in command.output.lower(),
+        "does not exist" in command.output.lower(),
+    ))
 
 
 @sudo_support
@@ -60,9 +57,9 @@ def get_new_command(command):
         elif directory == "..":
             cwd = os.path.split(cwd)[0]
             continue
-        best_matches = get_close_matches(
-            directory, _get_sub_dirs(cwd), cutoff=MAX_ALLOWED_DIFF
-        )
+        best_matches = get_close_matches(directory,
+                                         _get_sub_dirs(cwd),
+                                         cutoff=MAX_ALLOWED_DIFF)
         if best_matches:
             cwd = os.path.join(cwd, best_matches[0])
         else:

@@ -6,8 +6,8 @@ from thefuck.types import Command
 
 
 @pytest.mark.parametrize(
-    "command", [Command("git diff foo", ""), Command("git diff", "")]
-)
+    "command", [Command("git diff foo", ""),
+                Command("git diff", "")])
 def test_match(command):
     assert match(command)
 

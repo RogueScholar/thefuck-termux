@@ -78,8 +78,8 @@ def lsof(mocker):
 @pytest.mark.usefixtures("no_memoize")
 @pytest.mark.parametrize(
     "command",
-    [Command("./app", output) for output in outputs]
-    + [Command("./app", output) for output in outputs],
+    [Command("./app", output)
+     for output in outputs] + [Command("./app", output) for output in outputs],
 )
 def test_match(command):
     assert match(command)
@@ -102,8 +102,8 @@ def test_not_match(lsof, command, lsof_output):
 
 @pytest.mark.parametrize(
     "command",
-    [Command("./app", output) for output in outputs]
-    + [Command("./app", output) for output in outputs],
+    [Command("./app", output)
+     for output in outputs] + [Command("./app", output) for output in outputs],
 )
 def test_get_new_command(command):
     assert get_new_command(command) == "kill 18233 && ./app"

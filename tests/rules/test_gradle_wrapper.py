@@ -7,9 +7,8 @@ from thefuck.types import Command
 
 @pytest.fixture(autouse=True)
 def exists(mocker):
-    return mocker.patch(
-        "thefuck.rules.gradle_wrapper.os.path.isfile", return_value=True
-    )
+    return mocker.patch("thefuck.rules.gradle_wrapper.os.path.isfile",
+                        return_value=True)
 
 
 @pytest.mark.parametrize(
@@ -29,7 +28,8 @@ def test_match(mocker, command):
     "command, gradlew, which",
     [
         (Command("gradle tasks", "gradle: not found"), False, None),
-        (Command("gradle tasks", "command not found"), True, "/usr/bin/gradle"),
+        (Command("gradle tasks",
+                 "command not found"), True, "/usr/bin/gradle"),
         (Command("npm tasks", "npm: not found"), True, None),
     ],
 )

@@ -20,4 +20,5 @@ def test_not_match():
 
 
 def test_get_new_command(build_misspelled_output):
-    assert get_new_command(Command("go bulid", build_misspelled_output)) == "go build"
+    assert get_new_command(Command("go bulid",
+                                   build_misspelled_output)) == "go build"

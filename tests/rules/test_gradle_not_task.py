@@ -167,7 +167,8 @@ def test_not_match(command):
             Command("./gradlew instardebug", output_not_found("instardebug")),
             "./gradlew installDebug",
         ),
-        (Command("gradle assembler", output_ambiguous("assembler")), "gradle assemble"),
+        (Command("gradle assembler",
+                 output_ambiguous("assembler")), "gradle assemble"),
         (
             Command("gradle instardebug", output_not_found("instardebug")),
             "gradle installDebug",

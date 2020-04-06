@@ -6,7 +6,6 @@ from thefuck.specific.sudo import sudo_support
 from thefuck.utils import for_app
 from thefuck.utils import replace_command
 
-
 regex = re.compile(r"No such command: (.*)\.")
 
 
@@ -22,9 +21,9 @@ def _parse_operations(help_text_lines):
 
 
 def _get_operations():
-    proc = subprocess.Popen(
-        ["dnf", "--help"], stdout=subprocess.PIPE, stderr=subprocess.PIPE
-    )
+    proc = subprocess.Popen(["dnf", "--help"],
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE)
     lines = proc.stdout.read().decode("utf-8")
 
     return _parse_operations(lines)

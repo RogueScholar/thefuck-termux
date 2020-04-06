@@ -37,11 +37,12 @@ class TestGetRules(object):
             (["git.py", "bash.py"], ["git"], ["git"], []),
         ],
     )
-    def test_get_rules(
-        self, glob, settings, paths, conf_rules, exclude_rules, loaded_rules
-    ):
+    def test_get_rules(self, glob, settings, paths, conf_rules, exclude_rules,
+                       loaded_rules):
         glob([Path(path) for path in paths])
-        settings.update(rules=conf_rules, priority={}, exclude_rules=exclude_rules)
+        settings.update(rules=conf_rules,
+                        priority={},
+                        exclude_rules=exclude_rules)
         rules = corrector.get_rules()
         self._compare_names(rules, loaded_rules)
 
@@ -50,9 +51,9 @@ def test_get_corrected_commands(mocker):
     command = Command("test", "test")
     rules = [
         Rule(match=lambda _: False),
-        Rule(
-            match=lambda _: True, get_new_command=lambda x: x.script + "!", priority=100
-        ),
+        Rule(match=lambda _: True,
+             get_new_command=lambda x: x.script + "!",
+             priority=100),
         Rule(
             match=lambda _: True,
             get_new_command=lambda x: [x.script + "@", x.script + ";"],

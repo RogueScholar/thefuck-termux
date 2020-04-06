@@ -21,8 +21,7 @@ class Powershell(Generic):
             "        }\n"
             "    }\n"
             "    [Console]::ResetColor() \n"
-            "}\n"
-        )
+            "}\n")
 
     def and_(self, *commands):
         return u" -and ".join("({0})".format(c) for c in commands)

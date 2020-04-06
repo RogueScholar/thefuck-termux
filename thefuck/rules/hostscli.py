@@ -23,6 +23,7 @@ def get_new_command(command):
     if no_website in command.output:
         return ["hostscli websites"]
 
-    misspelled_command = re.findall(r'Error: No such command ".*"', command.output)[0]
+    misspelled_command = re.findall(r'Error: No such command ".*"',
+                                    command.output)[0]
     commands = ["block", "unblock", "websites", "block_all", "unblock_all"]
     return replace_command(command, misspelled_command, commands)

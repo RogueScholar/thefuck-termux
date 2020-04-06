@@ -9,16 +9,14 @@ from thefuck.utils import replace_argument
 
 @git_support
 def match(command):
-    return (
-        "did not match any file(s) known to git" in command.output
-        and "Did you forget to 'git add'?" not in command.output
-    )
+    return ("did not match any file(s) known to git" in command.output
+            and "Did you forget to 'git add'?" not in command.output)
 
 
 def get_branches():
     proc = subprocess.Popen(
-        ["git", "branch", "-a", "--no-color", "--no-column"], stdout=subprocess.PIPE
-    )
+        ["git", "branch", "-a", "--no-color", "--no-column"],
+        stdout=subprocess.PIPE)
     for line in proc.stdout.readlines():
         line = line.decode("utf-8")
         if "->" in line:  # Remote HEAD like b'  remotes/origin/HEAD -> origin/master'
@@ -33,25 +31,26 @@ def get_branches():
 @git_support
 def get_new_command(command):
     missing_file = re.findall(
-        r"error: pathspec '([^']*)' " r"did not match any file\(s\) known to git",
+        r"error: pathspec '([^']*)' "
+        r"did not match any file\(s\) known to git",
         command.output,
     )[0]
-    closest_branch = utils.get_closest(
-        missing_file, get_branches(), fallback_to_first=False
-    )
+    closest_branch = utils.get_closest(missing_file,
+                                       get_branches(),
+                                       fallback_to_first=False)
 
     new_commands = []
 
     if closest_branch:
         new_commands.append(
-            replace_argument(command.script, missing_file, closest_branch)
-        )
+            replace_argument(command.script, missing_file, closest_branch))
     if command.script_parts[1] == "checkout":
-        new_commands.append(replace_argument(command.script, "checkout", "checkout -b"))
+        new_commands.append(
+            replace_argument(command.script, "checkout", "checkout -b"))
 
     if not new_commands:
         new_commands.append(
-            shell.and_("git branch {}", "{}").format(missing_file, command.script)
-        )
+            shell.and_("git branch {}", "{}").format(missing_file,
+                                                     command.script))
 
     return new_commands

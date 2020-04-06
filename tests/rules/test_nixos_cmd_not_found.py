@@ -20,7 +20,8 @@ def test_not_match(mocker, command):
 @pytest.mark.parametrize(
     "command, new_command",
     [
-        (Command("vim", "nix-env -iA nixos.vim"), "nix-env -iA nixos.vim && vim"),
+        (Command("vim",
+                 "nix-env -iA nixos.vim"), "nix-env -iA nixos.vim && vim"),
         (
             Command("pacman", "nix-env -iA nixos.pacman"),
             "nix-env -iA nixos.pacman && pacman",

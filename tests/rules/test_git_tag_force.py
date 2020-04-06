@@ -16,4 +16,5 @@ def test_match(output):
 
 
 def test_get_new_command(output):
-    assert get_new_command(Command("git tag alert", output)) == "git tag --force alert"
+    assert get_new_command(Command("git tag alert",
+                                   output)) == "git tag --force alert"

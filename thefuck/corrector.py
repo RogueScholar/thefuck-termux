@@ -45,8 +45,7 @@ def get_rules():
 
     """
     paths = [
-        rule_path
-        for path in get_rules_import_paths()
+        rule_path for path in get_rules_import_paths()
         for rule_path in sorted(path.glob("*.py"))
     ]
     return sorted(get_loaded_rules(paths), key=lambda rule: rule.priority)
@@ -67,19 +66,17 @@ def organize_commands(corrected_commands):
 
     without_duplicates = {
         command
-        for command in sorted(corrected_commands, key=lambda command: command.priority)
+        for command in sorted(corrected_commands,
+                              key=lambda command: command.priority)
         if command != first_command
     }
 
     sorted_commands = sorted(
-        without_duplicates, key=lambda corrected_command: corrected_command.priority
-    )
+        without_duplicates,
+        key=lambda corrected_command: corrected_command.priority)
 
-    logs.debug(
-        "Corrected commands: ".format(
-            ", ".join(u"{}".format(cmd) for cmd in [first_command] + sorted_commands)
-        )
-    )
+    logs.debug("Corrected commands: ".format(", ".join(
+        u"{}".format(cmd) for cmd in [first_command] + sorted_commands)))
 
     for command in sorted_commands:
         yield command
@@ -93,9 +90,6 @@ def get_corrected_commands(command):
 
     """
     corrected_commands = (
-        corrected
-        for rule in get_rules()
-        if rule.is_match(command)
-        for corrected in rule.get_corrected_commands(command)
-    )
+        corrected for rule in get_rules() if rule.is_match(command)
+        for corrected in rule.get_corrected_commands(command))
     return organize_commands(corrected_commands)

@@ -7,7 +7,6 @@ from thefuck.utils import get_valid_history_without_current
 from thefuck.utils import memoize
 from thefuck.utils import replace_argument
 
-
 patterns = [
     r"no such file or directory: (.*)$",
     r"cannot access '(.*)': No such file or directory",
@@ -50,8 +49,7 @@ def get_new_command(command):
     paths = _get_all_absolute_paths_from_history(command)
 
     return [
-        replace_argument(command.script, destination, path)
-        for path in paths
+        replace_argument(command.script, destination, path) for path in paths
         if path.endswith(destination) and Path(path).expanduser().exists()
     ]
 

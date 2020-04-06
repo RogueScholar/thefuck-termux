@@ -15,12 +15,12 @@ from thefuck.entrypoints.alias import _get_alias
         (True, False, True, False),
     ],
 )
-def test_get_alias(
-    monkeypatch, mocker, py2, enable_experimental_instant_mode, which, is_instant
-):
+def test_get_alias(monkeypatch, mocker, py2, enable_experimental_instant_mode,
+                   which, is_instant):
     monkeypatch.setattr("six.PY2", py2)
     args = Mock(
-        enable_experimental_instant_mode=enable_experimental_instant_mode, alias="fuck",
+        enable_experimental_instant_mode=enable_experimental_instant_mode,
+        alias="fuck",
     )
     mocker.patch("thefuck.entrypoints.alias.which", return_value=which)
     shell = Mock(

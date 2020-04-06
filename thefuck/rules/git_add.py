@@ -9,7 +9,8 @@ from thefuck.utils import memoize
 @memoize
 def _get_missing_file(command):
     pathspec = re.findall(
-        r"error: pathspec '([^']*)' " r"did not match any file\(s\) known to git.",
+        r"error: pathspec '([^']*)' "
+        r"did not match any file\(s\) known to git.",
         command.output,
     )[0]
     if Path(pathspec).exists():
@@ -18,10 +19,8 @@ def _get_missing_file(command):
 
 @git_support
 def match(command):
-    return (
-        "did not match any file(s) known to git." in command.output
-        and _get_missing_file(command)
-    )
+    return ("did not match any file(s) known to git." in command.output
+            and _get_missing_file(command))
 
 
 @git_support

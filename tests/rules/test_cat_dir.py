@@ -40,7 +40,8 @@ def test_not_match(command, isdir):
     "command, new_command",
     [
         (Command("cat foo", "cat: foo: Is a directory\n"), "ls foo"),
-        (Command("cat /foo/bar/", "cat: /foo/bar/: Is a directory\n"), "ls /foo/bar/"),
+        (Command("cat /foo/bar/",
+                 "cat: /foo/bar/: Is a directory\n"), "ls /foo/bar/"),
         (Command("cat cat", "cat: cat: Is a directory\n"), "ls cat"),
     ],
 )

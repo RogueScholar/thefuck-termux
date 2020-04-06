@@ -5,7 +5,6 @@ from thefuck.rules.ifconfig_device_not_found import get_new_command
 from thefuck.rules.ifconfig_device_not_found import match
 from thefuck.types import Command
 
-
 output = "{}: error fetching interface information: Device not found"
 
 stdout = b"""
@@ -22,7 +21,8 @@ wlp2s0    Link encap:Ethernet  HWaddr 5c:51:4f:7c:58:5d
 
 @pytest.fixture(autouse=True)
 def ifconfig(mocker):
-    mock = mocker.patch("thefuck.rules.ifconfig_device_not_found.subprocess.Popen")
+    mock = mocker.patch(
+        "thefuck.rules.ifconfig_device_not_found.subprocess.Popen")
     mock.return_value.stdout = BytesIO(stdout)
     return mock
 

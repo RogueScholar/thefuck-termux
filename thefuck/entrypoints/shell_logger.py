@@ -75,7 +75,8 @@ def shell_logger(output):
 
     fd = os.open(output, os.O_CREAT | os.O_TRUNC | os.O_RDWR)
     os.write(fd, b"\x00" * const.LOG_SIZE_IN_BYTES)
-    buffer = mmap.mmap(fd, const.LOG_SIZE_IN_BYTES, mmap.MAP_SHARED, mmap.PROT_WRITE)
+    buffer = mmap.mmap(fd, const.LOG_SIZE_IN_BYTES, mmap.MAP_SHARED,
+                       mmap.PROT_WRITE)
     return_code = _spawn(os.environ["SHELL"], partial(_read, buffer))
 
     sys.exit(return_code)

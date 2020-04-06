@@ -4,10 +4,8 @@ from thefuck.utils import replace_argument
 
 @git_support
 def match(command):
-    return (
-        "add" in command.script_parts
-        and "Use -f if you really want to add them." in command.output
-    )
+    return ("add" in command.script_parts
+            and "Use -f if you really want to add them." in command.output)
 
 
 @git_support

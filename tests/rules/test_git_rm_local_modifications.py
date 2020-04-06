@@ -9,13 +9,11 @@ from thefuck.types import Command
 def output(target):
     return (
         "error: the following file has local modifications:\n    {}\n(use "
-        "--cached to keep the file, or -f to force removal)"
-    ).format(target)
+        "--cached to keep the file, or -f to force removal)").format(target)
 
 
-@pytest.mark.parametrize(
-    "script, target", [("git rm foo", "foo"), ("git rm foo bar", "bar")]
-)
+@pytest.mark.parametrize("script, target", [("git rm foo", "foo"),
+                                            ("git rm foo bar", "bar")])
 def test_match(output, script, target):
     assert match(Command(script, output))
 
@@ -29,7 +27,8 @@ def test_not_match(script):
     "script, target, new_command",
     [
         ("git rm foo", "foo", ["git rm --cached foo", "git rm -f foo"]),
-        ("git rm foo bar", "bar", ["git rm --cached foo bar", "git rm -f foo bar"]),
+        ("git rm foo bar", "bar",
+         ["git rm --cached foo bar", "git rm -f foo bar"]),
     ],
 )
 def test_get_new_command(output, script, target, new_command):

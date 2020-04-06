@@ -24,9 +24,7 @@ def _kill_process(proc):
     except AccessDenied:
         logs.debug(
             u"Rerun: process PID {} ({}) could not be terminated".format(
-                proc.pid, proc.exe()
-            )
-        )
+                proc.pid, proc.exe()))
 
 
 def _wait_output(popen, is_slow):
@@ -41,7 +39,8 @@ def _wait_output(popen, is_slow):
     """
     proc = Process(popen.pid)
     try:
-        proc.wait(settings.wait_slow_command if is_slow else settings.wait_command)
+        proc.wait(
+            settings.wait_slow_command if is_slow else settings.wait_command)
         return True
     except TimeoutExpired:
         for child in proc.children(recursive=True):
@@ -62,13 +61,16 @@ def get_output(script, expanded):
     env.update(settings.env)
 
     split_expand = shlex.split(expanded)
-    is_slow = split_expand[0] in settings.slow_commands if split_expand else False
-    with logs.debug_time(
-        u"Call: {}; with env: {}; is slow: {}".format(script, env, is_slow)
-    ):
-        result = Popen(
-            expanded, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, env=env
-        )
+    is_slow = split_expand[
+        0] in settings.slow_commands if split_expand else False
+    with logs.debug_time(u"Call: {}; with env: {}; is slow: {}".format(
+            script, env, is_slow)):
+        result = Popen(expanded,
+                       shell=True,
+                       stdin=PIPE,
+                       stdout=PIPE,
+                       stderr=STDOUT,
+                       env=env)
         if _wait_output(result, is_slow):
             output = result.stdout.read().decode("utf-8")
             logs.debug(u"Received output: {}".format(output))

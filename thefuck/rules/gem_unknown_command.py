@@ -10,10 +10,8 @@ from thefuck.utils import which
 
 @for_app("gem")
 def match(command):
-    return (
-        "ERROR:  While executing gem ... (Gem::CommandLineError)" in command.output
-        and "Unknown command" in command.output
-    )
+    return ("ERROR:  While executing gem ... (Gem::CommandLineError)" in
+            command.output and "Unknown command" in command.output)
 
 
 def _get_unknown_command(command):
@@ -22,7 +20,8 @@ def _get_unknown_command(command):
 
 @eager
 def _get_all_commands():
-    proc = subprocess.Popen(["gem", "help", "commands"], stdout=subprocess.PIPE)
+    proc = subprocess.Popen(["gem", "help", "commands"],
+                            stdout=subprocess.PIPE)
 
     for line in proc.stdout.readlines():
         line = line.decode()

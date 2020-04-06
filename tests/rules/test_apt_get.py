@@ -27,9 +27,9 @@ from thefuck.types import Command
 )
 def test_match(mocker, command, packages):
     mocker.patch("thefuck.rules.apt_get.which", return_value=None)
-    mocker.patch(
-        "thefuck.rules.apt_get._get_packages", create=True, return_value=packages
-    )
+    mocker.patch("thefuck.rules.apt_get._get_packages",
+                 create=True,
+                 return_value=packages)
 
     assert match(command)
 
@@ -41,14 +41,15 @@ def test_match(mocker, command, packages):
         (Command("vim", ""), [], None),
         (Command("", ""), [], None),
         (Command("vim", "vim: command not found"), ["vim"], "/usr/bin/vim"),
-        (Command("sudo vim", "vim: command not found"), ["vim"], "/usr/bin/vim"),
+        (Command("sudo vim", "vim: command not found"), ["vim"
+                                                         ], "/usr/bin/vim"),
     ],
 )
 def test_not_match(mocker, command, packages, which):
     mocker.patch("thefuck.rules.apt_get.which", return_value=which)
-    mocker.patch(
-        "thefuck.rules.apt_get._get_packages", create=True, return_value=packages
-    )
+    mocker.patch("thefuck.rules.apt_get._get_packages",
+                 create=True,
+                 return_value=packages)
 
     assert not match(command)
 
@@ -85,8 +86,8 @@ def test_not_match(mocker, command, packages, which):
     ],
 )
 def test_get_new_command(mocker, command, new_command, packages):
-    mocker.patch(
-        "thefuck.rules.apt_get._get_packages", create=True, return_value=packages
-    )
+    mocker.patch("thefuck.rules.apt_get._get_packages",
+                 create=True,
+                 return_value=packages)
 
     assert get_new_command(command) == new_command

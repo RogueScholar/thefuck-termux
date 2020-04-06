@@ -51,11 +51,8 @@ class Settings(dict):
 
         # For backward compatibility use legacy '~/.thefuck' if it exists:
         if legacy_user_dir.is_dir():
-            warn(
-                u"Config path {} is deprecated. Please move to {}".format(
-                    legacy_user_dir, user_dir
-                )
-            )
+            warn(u"Config path {} is deprecated. Please move to {}".format(
+                legacy_user_dir, user_dir))
             return legacy_user_dir
         else:
             return user_dir
@@ -72,12 +69,10 @@ class Settings(dict):
     def _settings_from_file(self):
         """Loads settings from file."""
         settings = load_source(
-            "settings", text_type(self.user_dir.joinpath("settings.py"))
-        )
+            "settings", text_type(self.user_dir.joinpath("settings.py")))
         return {
             key: getattr(settings, key)
-            for key in const.DEFAULT_SETTINGS.keys()
-            if hasattr(settings, key)
+            for key in const.DEFAULT_SETTINGS.keys() if hasattr(settings, key)
         }
 
     def _rules_from_env(self, val):
@@ -106,18 +101,18 @@ class Settings(dict):
         elif attr == "priority":
             return dict(self._priority_from_env(val))
         elif attr in (
-            "wait_command",
-            "history_limit",
-            "wait_slow_command",
-            "num_close_matches",
+                "wait_command",
+                "history_limit",
+                "wait_slow_command",
+                "num_close_matches",
         ):
             return int(val)
         elif attr in (
-            "require_confirmation",
-            "no_colors",
-            "debug",
-            "alter_history",
-            "instant_mode",
+                "require_confirmation",
+                "no_colors",
+                "debug",
+                "alter_history",
+                "instant_mode",
         ):
             return val.lower() == "true"
         elif attr == "slow_commands":
@@ -129,8 +124,7 @@ class Settings(dict):
         """Loads settings from env."""
         return {
             attr: self._val_from_env(env, attr)
-            for env, attr in const.ENV_TO_ATTR.items()
-            if env in os.environ
+            for env, attr in const.ENV_TO_ATTR.items() if env in os.environ
         }
 
     def _settings_from_args(self, args):

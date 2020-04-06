@@ -10,8 +10,7 @@ from thefuck.types import Command
 
 def did_not_match(target, did_you_forget=False):
     error = "error: pathspec '{}' did not match any " "file(s) known to git.".format(
-        target
-    )
+        target)
     if did_you_forget:
         error = "{}\nDid you forget to 'git add'?'".format(error)
     return error
@@ -38,7 +37,8 @@ def test_match(command):
 @pytest.mark.parametrize(
     "command",
     [
-        Command("git submodule update unknown", did_not_match("unknown", True)),
+        Command("git submodule update unknown", did_not_match("unknown",
+                                                              True)),
         Command("git checkout known", ""),
         Command("git commit known", ""),
     ],
@@ -59,7 +59,8 @@ def test_not_match(command):
         (b"  test/1/2/3", ["test/1/2/3"]),
         (b"  remotes/origin/HEAD -> origin/master", []),
         (b"  just-another-branch", ["just-another-branch"]),
-        (b"* master\n  just-another-branch", ["master", "just-another-branch"]),
+        (b"* master\n  just-another-branch", ["master", "just-another-branch"
+                                              ]),
         (
             b"* master\n  remotes/origin/master\n  just-another-branch",
             ["master", "master", "just-another-branch"],
@@ -86,9 +87,8 @@ def test_get_branches(branches, branch_list, git_branch):
         ),
         (
             b"  test-random-branch-123",
-            Command(
-                "git checkout tst-rdm-brnch-123", did_not_match("tst-rdm-brnch-123")
-            ),
+            Command("git checkout tst-rdm-brnch-123",
+                    did_not_match("tst-rdm-brnch-123")),
             [
                 "git checkout test-random-branch-123",
                 "git checkout -b tst-rdm-brnch-123",
@@ -96,7 +96,8 @@ def test_get_branches(branches, branch_list, git_branch):
         ),
         (
             b"  test-random-branch-123",
-            Command("git commit tst-rdm-brnch-123", did_not_match("tst-rdm-brnch-123")),
+            Command("git commit tst-rdm-brnch-123",
+                    did_not_match("tst-rdm-brnch-123")),
             ["git commit test-random-branch-123"],
         ),
     ],

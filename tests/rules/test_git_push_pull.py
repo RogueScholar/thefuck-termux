@@ -4,7 +4,6 @@ from thefuck.rules.git_push_pull import get_new_command
 from thefuck.rules.git_push_pull import match
 from thefuck.types import Command
 
-
 git_err = """
 To /tmp/foo
  ! [rejected]        master -> master (non-fast-forward)

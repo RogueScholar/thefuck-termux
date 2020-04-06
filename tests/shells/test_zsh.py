@@ -23,8 +23,7 @@ class TestZsh(object):
             "fuck='eval $(thefuck $(fc -ln -1 | tail -n 1))'\n"
             "l='ls -CF'\n"
             "la='ls -A'\n"
-            "ll='ls -alF'"
-        )
+            "ll='ls -alF'")
 
     @pytest.mark.parametrize(
         "before, after",
@@ -76,7 +75,8 @@ class TestZsh(object):
         config_exists.return_value = True
         assert shell.how_to_configure().can_configure_automatically
 
-    def test_how_to_configure_when_config_not_found(self, shell, config_exists):
+    def test_how_to_configure_when_config_not_found(self, shell,
+                                                    config_exists):
         config_exists.return_value = False
         assert not shell.how_to_configure().can_configure_automatically
 

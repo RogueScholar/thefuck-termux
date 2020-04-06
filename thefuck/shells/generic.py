@@ -10,10 +10,9 @@ from ..logs import warn
 from ..system import Path
 from ..utils import memoize
 
-
 ShellConfiguration = namedtuple(
-    "ShellConfiguration", ("content", "path", "reload", "can_configure_automatically")
-)
+    "ShellConfiguration",
+    ("content", "path", "reload", "can_configure_automatically"))
 
 
 class Generic(object):
@@ -39,10 +38,8 @@ class Generic(object):
         return command_script
 
     def app_alias(self, alias_name):
-        return (
-            """alias {0}='eval "$(TF_ALIAS={0} PYTHONIOENCODING=utf-8 """
-            """thefuck "$(fc -ln -1)")"'""".format(alias_name)
-        )
+        return ("""alias {0}='eval "$(TF_ALIAS={0} PYTHONIOENCODING=utf-8 """
+                """thefuck "$(fc -ln -1)")"'""".format(alias_name))
 
     def instant_mode_alias(self, alias_name):
         warn("Instant mode not supported by your shell")
@@ -62,13 +59,14 @@ class Generic(object):
         """Returns list of history entries."""
         history_file_name = self._get_history_file_name()
         if os.path.isfile(history_file_name):
-            with io.open(
-                history_file_name, "r", encoding="utf-8", errors="ignore"
-            ) as history_file:
+            with io.open(history_file_name,
+                         "r",
+                         encoding="utf-8",
+                         errors="ignore") as history_file:
 
                 lines = history_file.readlines()
                 if settings.history_limit:
-                    lines = lines[-settings.history_limit :]
+                    lines = lines[-settings.history_limit:]
 
                 for line in lines:
                     prepared = self._script_from_history(line).strip()

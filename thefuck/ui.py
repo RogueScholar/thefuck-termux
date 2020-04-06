@@ -71,7 +71,8 @@ def select_command(corrected_commands):
     try:
         selector = CommandSelector(corrected_commands)
     except NoRuleMatched:
-        logs.failed("No fucks given" if get_alias() == "fuck" else "Nothing found")
+        logs.failed("No fucks given" if get_alias() ==
+                    "fuck" else "Nothing found")
         return
 
     if not settings.require_confirmation:

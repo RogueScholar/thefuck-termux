@@ -6,7 +6,6 @@ from thefuck.rules.docker_not_command import get_new_command
 from thefuck.rules.docker_not_command import match
 from thefuck.types import Command
 
-
 _DOCKER_SWARM_OUTPUT = """
 Usage:	docker swarm COMMAND
 
@@ -236,7 +235,8 @@ Run 'docker COMMAND --help' for more information on a command.
 
 
 def output(cmd):
-    return "docker: '{}' is not a docker command.\n" "See 'docker --help'.".format(cmd)
+    return "docker: '{}' is not a docker command.\n" "See 'docker --help'.".format(
+        cmd)
 
 
 def test_match():
@@ -266,9 +266,8 @@ def test_match_management_subcmd(script, output):
     assert match(Command(script, output))
 
 
-@pytest.mark.parametrize(
-    "script, output", [("docker ps", ""), ("cat pes", output("pes"))]
-)
+@pytest.mark.parametrize("script, output", [("docker ps", ""),
+                                            ("cat pes", output("pes"))])
 def test_not_match(script, output):
     assert not match(Command(script, output))
 
@@ -286,7 +285,8 @@ def test_get_new_command(wrong, fixed):
 @pytest.mark.usefixtures("no_memoize", "docker_help_new")
 @pytest.mark.parametrize(
     "wrong, fixed",
-    [("swarn", ["swarm", "start", "search"]), ("inage", ["image", "images", "rename"])],
+    [("swarn", ["swarm", "start", "search"]),
+     ("inage", ["image", "images", "rename"])],
 )
 def test_get_new_management_command(wrong, fixed):
     command = Command("docker {}".format(wrong), output(wrong))
@@ -302,7 +302,8 @@ def test_get_new_management_command(wrong, fixed):
             ["swarm init", "swarm join", "swarm join-token"],
             _DOCKER_SWARM_OUTPUT,
         ),
-        ("image la", ["image load", "image ls", "image tag"], _DOCKER_IMAGE_OUTPUT),
+        ("image la", ["image load", "image ls", "image tag"
+                      ], _DOCKER_IMAGE_OUTPUT),
     ],
 )
 def test_get_new_management_command_subcommand(wrong, fixed, output):

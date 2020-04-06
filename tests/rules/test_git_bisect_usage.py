@@ -7,22 +7,18 @@ from thefuck.types import Command
 
 @pytest.fixture
 def output():
-    return (
-        "usage: git bisect [help|start|bad|good|new|old"
-        "|terms|skip|next|reset|visualize|replay|log|run]"
-    )
+    return ("usage: git bisect [help|start|bad|good|new|old"
+            "|terms|skip|next|reset|visualize|replay|log|run]")
 
 
 @pytest.mark.parametrize(
-    "script", ["git bisect strt", "git bisect rset", "git bisect goood"]
-)
+    "script", ["git bisect strt", "git bisect rset", "git bisect goood"])
 def test_match(output, script):
     assert match(Command(script, output))
 
 
-@pytest.mark.parametrize(
-    "script", ["git bisect", "git bisect start", "git bisect good"]
-)
+@pytest.mark.parametrize("script",
+                         ["git bisect", "git bisect start", "git bisect good"])
 def test_not_match(script):
     assert not match(Command(script, ""))
 

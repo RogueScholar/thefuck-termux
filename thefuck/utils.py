@@ -133,8 +133,7 @@ def get_all_executables():
     ]
     aliases = [
         alias.decode("utf8") if six.PY2 else alias
-        for alias in shell.get_aliases()
-        if alias != tf_alias
+        for alias in shell.get_aliases() if alias != tf_alias
     ]
 
     return bins + aliases
@@ -142,9 +141,10 @@ def get_all_executables():
 
 def replace_argument(script, from_, to):
     """Replaces command line argument."""
-    replaced_in_the_end = re.sub(
-        u" {}$".format(re.escape(from_)), u" {}".format(to), script, count=1
-    )
+    replaced_in_the_end = re.sub(u" {}$".format(re.escape(from_)),
+                                 u" {}".format(to),
+                                 script,
+                                 count=1)
     if replaced_in_the_end != script:
         return replaced_in_the_end
     else:
@@ -186,7 +186,8 @@ def is_app(command, *app_names, **kwargs):
 
     at_least = kwargs.pop("at_least", 0)
     if kwargs:
-        raise TypeError("got an unexpected keyword argument '{}'".format(kwargs.keys()))
+        raise TypeError("got an unexpected keyword argument '{}'".format(
+            kwargs.keys()))
 
     if len(command.script_parts) > at_least:
         return command.script_parts[0] in app_names
@@ -225,7 +226,7 @@ class Cache(object):
 
         try:
             self._db = shelve.open(cache_path)
-        except shelve_open_error + (ImportError,):
+        except shelve_open_error + (ImportError, ):
             # Caused when switching between Python versions
             warn("Removing possibly out-dated cache")
             os.remove(cache_path)
@@ -254,7 +255,8 @@ class Cache(object):
             return "0"
 
     def _get_key(self, fn, depends_on, args, kwargs):
-        parts = (fn.__module__, repr(fn).split("at")[0], depends_on, args, kwargs)
+        parts = (fn.__module__, repr(fn).split("at")[0], depends_on, args,
+                 kwargs)
         return str(pickle.dumps(parts))
 
     def get_value(self, fn, depends_on, args, kwargs):
@@ -262,7 +264,8 @@ class Cache(object):
             self._init_db()
 
         depends_on = [
-            Path(name).expanduser().absolute().as_posix() for name in depends_on
+            Path(name).expanduser().absolute().as_posix()
+            for name in depends_on
         ]
         key = self._get_key(fn, depends_on, args, kwargs)
         etag = ".".join(self._get_mtime(path) for path in depends_on)
@@ -331,13 +334,12 @@ def get_valid_history_without_current(command):
 
     history = shell.get_history()
     tf_alias = get_alias()
-    executables = set(get_all_executables()).union(shell.get_builtin_commands())
+    executables = set(get_all_executables()).union(
+        shell.get_builtin_commands())
 
     return [
-        line
-        for line in _not_corrected(history, tf_alias)
-        if not line.startswith(tf_alias)
-        and not line == command.script
+        line for line in _not_corrected(history, tf_alias)
+        if not line.startswith(tf_alias) and not line == command.script
         and line.split(" ")[0] in executables
     ]
 

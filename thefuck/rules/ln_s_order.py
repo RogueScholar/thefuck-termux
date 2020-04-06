@@ -12,12 +12,10 @@ def _get_destination(script_parts):
 
 @sudo_support
 def match(command):
-    return (
-        command.script_parts[0] == "ln"
-        and {"-s", "--symbolic"}.intersection(command.script_parts)
-        and "File exists" in command.output
-        and _get_destination(command.script_parts)
-    )
+    return (command.script_parts[0] == "ln"
+            and {"-s", "--symbolic"}.intersection(command.script_parts)
+            and "File exists" in command.output
+            and _get_destination(command.script_parts))
 
 
 @sudo_support

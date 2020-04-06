@@ -4,7 +4,6 @@ from thefuck.rules.git_push_force import get_new_command
 from thefuck.rules.git_push_force import match
 from thefuck.types import Command
 
-
 git_err = """
 To /tmp/foo
  ! [rejected]        master -> master (non-fast-forward)
@@ -58,7 +57,8 @@ def test_not_match(command):
     "command, output",
     [
         (Command("git push", git_err), "git push --force-with-lease"),
-        (Command("git push nvbn", git_err), "git push --force-with-lease nvbn"),
+        (Command("git push nvbn",
+                 git_err), "git push --force-with-lease nvbn"),
         (
             Command("git push nvbn master", git_err),
             "git push --force-with-lease nvbn master",

@@ -62,16 +62,14 @@ def gem_help_commands(mocker):
     return patch
 
 
-@pytest.mark.parametrize(
-    "script, command", [("gem isntall jekyll", "isntall"), ("gem last --local", "last")]
-)
+@pytest.mark.parametrize("script, command", [("gem isntall jekyll", "isntall"),
+                                             ("gem last --local", "last")])
 def test_match(script, command):
     assert match(Command(script, output.format(command)))
 
 
-@pytest.mark.parametrize(
-    "script, output", [("gem install jekyll", ""), ("git log", output.format("log"))]
-)
+@pytest.mark.parametrize("script, output", [("gem install jekyll", ""),
+                                            ("git log", output.format("log"))])
 def test_not_match(script, output):
     assert not match(Command(script, output))
 

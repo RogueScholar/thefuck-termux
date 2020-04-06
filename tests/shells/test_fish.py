@@ -15,14 +15,10 @@ class TestFish(object):
     def Popen(self, mocker):
         mock = mocker.patch("thefuck.shells.fish.Popen")
         mock.return_value.stdout.read.side_effect = [
-            (
-                b"cd\nfish_config\nfuck\nfunced\nfuncsave\ngrep\nhistory\nll\nls\n"
-                b"man\nmath\npopd\npushd\nruby"
-            ),
-            (
-                b"alias fish_key_reader /usr/bin/fish_key_reader\nalias g git\n"
-                b"alias alias_with_equal_sign=echo\ninvalid_alias"
-            ),
+            (b"cd\nfish_config\nfuck\nfunced\nfuncsave\ngrep\nhistory\nll\nls\n"
+             b"man\nmath\npopd\npushd\nruby"),
+            (b"alias fish_key_reader /usr/bin/fish_key_reader\nalias g git\n"
+             b"alias alias_with_equal_sign=echo\ninvalid_alias"),
             b"func1\nfunc2",
             b"",
         ]
@@ -119,9 +115,10 @@ class TestFish(object):
         assert "builtin history merge" not in shell.app_alias("FUCK")
 
     def test_get_history(self, history_lines, shell):
-        history_lines(
-            ["- cmd: ls", "  when: 1432613911", "- cmd: rm", "  when: 1432613916"]
-        )
+        history_lines([
+            "- cmd: ls", "  when: 1432613911", "- cmd: rm",
+            "  when: 1432613916"
+        ])
         assert list(shell.get_history()) == ["ls", "rm"]
 
     @pytest.mark.parametrize(
@@ -131,18 +128,20 @@ class TestFish(object):
             (u"echo café", "- cmd: echo café\n   when: 1430707243\n"),
         ],
     )
-    def test_put_to_history(self, entry, entry_utf8, builtins_open, mocker, shell):
-        mocker.patch("thefuck.shells.fish.time", return_value=1430707243.3517463)
+    def test_put_to_history(self, entry, entry_utf8, builtins_open, mocker,
+                            shell):
+        mocker.patch("thefuck.shells.fish.time",
+                     return_value=1430707243.3517463)
         shell.put_to_history(entry)
         builtins_open.return_value.__enter__.return_value.write.assert_called_once_with(
-            entry_utf8
-        )
+            entry_utf8)
 
     def test_how_to_configure(self, shell, config_exists):
         config_exists.return_value = True
         assert shell.how_to_configure().can_configure_automatically
 
-    def test_how_to_configure_when_config_not_found(self, shell, config_exists):
+    def test_how_to_configure_when_config_not_found(self, shell,
+                                                    config_exists):
         config_exists.return_value = False
         assert not shell.how_to_configure().can_configure_automatically
 
@@ -153,7 +152,10 @@ class TestFish(object):
 
     @pytest.mark.parametrize(
         "side_effect, exception",
-        [([b"\n"], IndexError), (OSError("file not found"), OSError),],
+        [
+            ([b"\n"], IndexError),
+            (OSError("file not found"), OSError),
+        ],
     )
     def test_get_version_error(self, side_effect, exception, shell, Popen):
         Popen.return_value.stdout.read.side_effect = side_effect
