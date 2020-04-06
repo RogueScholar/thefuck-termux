@@ -13,19 +13,24 @@ MAX_ALLOWED_DIFF = 0.6
 
 def _get_sub_dirs(parent):
     """Returns a list of the child directories of the given parent directory"""
-    return [child for child in os.listdir(parent) if os.path.isdir(os.path.join(parent, child))]
+    return [
+        child
+        for child in os.listdir(parent)
+        if os.path.isdir(os.path.join(parent, child))
+    ]
 
 
 @sudo_support
-@for_app('cd')
+@for_app("cd")
 def match(command):
     """Match function copied from cd_mkdir.py"""
-    return (
-        command.script.startswith('cd ') and any((
-            'no such file or directory' in command.output.lower(),
-            'cd: can\'t cd to' in command.output.lower(),
-            'does not exist' in command.output.lower()
-        )))
+    return command.script.startswith("cd ") and any(
+        (
+            "no such file or directory" in command.output.lower(),
+            "cd: can't cd to" in command.output.lower(),
+            "does not exist" in command.output.lower(),
+        )
+    )
 
 
 @sudo_support
@@ -37,10 +42,10 @@ def get_new_command(command):
     Change sensitivity by changing MAX_ALLOWED_DIFF. Default value is 0.6
     """
     dest = command.script_parts[1].split(os.sep)
-    if dest[-1] == '':
+    if dest[-1] == "":
         dest = dest[:-1]
 
-    if dest[0] == '':
+    if dest[0] == "":
         cwd = os.sep
         dest = dest[1:]
     elif six.PY2:
@@ -53,7 +58,9 @@ def get_new_command(command):
         elif directory == "..":
             cwd = os.path.split(cwd)[0]
             continue
-        best_matches = get_close_matches(directory, _get_sub_dirs(cwd), cutoff=MAX_ALLOWED_DIFF)
+        best_matches = get_close_matches(
+            directory, _get_sub_dirs(cwd), cutoff=MAX_ALLOWED_DIFF
+        )
         if best_matches:
             cwd = os.path.join(cwd, best_matches[0])
         else:

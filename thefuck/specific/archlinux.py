@@ -13,14 +13,15 @@ def get_pkgfile(command):
     try:
         command = command.strip()
 
-        if command.startswith('sudo '):
+        if command.startswith("sudo "):
             command = command[5:]
 
         command = command.split(" ")[0]
 
         packages = subprocess.check_output(
-            ['pkgfile', '-b', '-v', command],
-            universal_newlines=True, stderr=utils.DEVNULL
+            ["pkgfile", "-b", "-v", command],
+            universal_newlines=True,
+            stderr=utils.DEVNULL,
         ).splitlines()
 
         return [package.split()[0] for package in packages]
@@ -32,15 +33,15 @@ def get_pkgfile(command):
 
 
 def archlinux_env():
-    if utils.which('yay'):
-        pacman = 'yay'
-    elif utils.which('yaourt'):
-        pacman = 'yaourt'
-    elif utils.which('pacman'):
-        pacman = 'sudo pacman'
+    if utils.which("yay"):
+        pacman = "yay"
+    elif utils.which("yaourt"):
+        pacman = "yaourt"
+    elif utils.which("pacman"):
+        pacman = "sudo pacman"
     else:
         return False, None
 
-    enabled_by_default = utils.which('pkgfile')
+    enabled_by_default = utils.which("pkgfile")
 
     return enabled_by_default, pacman

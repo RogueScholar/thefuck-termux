@@ -25,22 +25,25 @@ class Command(object):
 
     @property
     def stdout(self):
-        logs.warn('`stdout` is deprecated, please use `output` instead')
+        logs.warn("`stdout` is deprecated, please use `output` instead")
         return self.output
 
     @property
     def stderr(self):
-        logs.warn('`stderr` is deprecated, please use `output` instead')
+        logs.warn("`stderr` is deprecated, please use `output` instead")
         return self.output
 
     @property
     def script_parts(self):
-        if not hasattr(self, '_script_parts'):
+        if not hasattr(self, "_script_parts"):
             try:
                 self._script_parts = shell.split_command(self.script)
             except Exception:
-                logs.debug(u"Can't split command script {} because:\n {}".format(
-                    self, sys.exc_info()))
+                logs.debug(
+                    u"Can't split command script {} because:\n {}".format(
+                        self, sys.exc_info()
+                    )
+                )
                 self._script_parts = []
 
         return self._script_parts
@@ -52,8 +55,7 @@ class Command(object):
             return False
 
     def __repr__(self):
-        return u'Command(script={}, output={})'.format(
-            self.script, self.output)
+        return u"Command(script={}, output={})".format(self.script, self.output)
 
     def update(self, **kwargs):
         """Returns new command with replaced fields.
@@ -61,8 +63,8 @@ class Command(object):
         :rtype: Command
 
         """
-        kwargs.setdefault('script', self.script)
-        kwargs.setdefault('output', self.output)
+        kwargs.setdefault("script", self.script)
+        kwargs.setdefault("output", self.output)
         return Command(**kwargs)
 
     @classmethod
@@ -86,9 +88,16 @@ class Command(object):
 class Rule(object):
     """Rule for fixing commands."""
 
-    def __init__(self, name, match, get_new_command,
-                 enabled_by_default, side_effect,
-                 priority, requires_output):
+    def __init__(
+        self,
+        name,
+        match,
+        get_new_command,
+        enabled_by_default,
+        side_effect,
+        priority,
+        requires_output,
+    ):
         """Initializes rule with given fields.
 
         :type name: basestring
@@ -110,22 +119,40 @@ class Rule(object):
 
     def __eq__(self, other):
         if isinstance(other, Rule):
-            return ((self.name, self.match, self.get_new_command,
-                     self.enabled_by_default, self.side_effect,
-                     self.priority, self.requires_output)
-                    == (other.name, other.match, other.get_new_command,
-                        other.enabled_by_default, other.side_effect,
-                        other.priority, other.requires_output))
+            return (
+                self.name,
+                self.match,
+                self.get_new_command,
+                self.enabled_by_default,
+                self.side_effect,
+                self.priority,
+                self.requires_output,
+            ) == (
+                other.name,
+                other.match,
+                other.get_new_command,
+                other.enabled_by_default,
+                other.side_effect,
+                other.priority,
+                other.requires_output,
+            )
         else:
             return False
 
     def __repr__(self):
-        return 'Rule(name={}, match={}, get_new_command={}, ' \
-               'enabled_by_default={}, side_effect={}, ' \
-               'priority={}, requires_output)'.format(
-                   self.name, self.match, self.get_new_command,
-                   self.enabled_by_default, self.side_effect,
-                   self.priority, self.requires_output)
+        return (
+            "Rule(name={}, match={}, get_new_command={}, "
+            "enabled_by_default={}, side_effect={}, "
+            "priority={}, requires_output)".format(
+                self.name,
+                self.match,
+                self.get_new_command,
+                self.enabled_by_default,
+                self.side_effect,
+                self.priority,
+                self.requires_output,
+            )
+        )
 
     @classmethod
     def from_path(cls, path):
@@ -136,15 +163,18 @@ class Rule(object):
 
         """
         name = path.name[:-3]
-        with logs.debug_time(u'Importing rule: {};'.format(name)):
+        with logs.debug_time(u"Importing rule: {};".format(name)):
             rule_module = load_source(name, str(path))
-            priority = getattr(rule_module, 'priority', DEFAULT_PRIORITY)
-        return cls(name, rule_module.match,
-                   rule_module.get_new_command,
-                   getattr(rule_module, 'enabled_by_default', True),
-                   getattr(rule_module, 'side_effect', None),
-                   settings.priority.get(name, priority),
-                   getattr(rule_module, 'requires_output', True))
+            priority = getattr(rule_module, "priority", DEFAULT_PRIORITY)
+        return cls(
+            name,
+            rule_module.match,
+            rule_module.get_new_command,
+            getattr(rule_module, "enabled_by_default", True),
+            getattr(rule_module, "side_effect", None),
+            settings.priority.get(name, priority),
+            getattr(rule_module, "requires_output", True),
+        )
 
     @property
     def is_enabled(self):
@@ -173,7 +203,7 @@ class Rule(object):
             return False
 
         try:
-            with logs.debug_time(u'Trying rule: {};'.format(self.name)):
+            with logs.debug_time(u"Trying rule: {};".format(self.name)):
                 if self.match(command):
                     return True
         except Exception:
@@ -190,9 +220,11 @@ class Rule(object):
         if not isinstance(new_commands, list):
             new_commands = (new_commands,)
         for n, new_command in enumerate(new_commands):
-            yield CorrectedCommand(script=new_command,
-                                   side_effect=self.side_effect,
-                                   priority=(n + 1) * self.priority)
+            yield CorrectedCommand(
+                script=new_command,
+                side_effect=self.side_effect,
+                priority=(n + 1) * self.priority,
+            )
 
 
 class CorrectedCommand(object):
@@ -213,8 +245,7 @@ class CorrectedCommand(object):
     def __eq__(self, other):
         """Ignores `priority` field."""
         if isinstance(other, CorrectedCommand):
-            return (other.script, other.side_effect) == \
-                   (self.script, self.side_effect)
+            return (other.script, other.side_effect) == (self.script, self.side_effect)
         else:
             return False
 
@@ -222,8 +253,9 @@ class CorrectedCommand(object):
         return (self.script, self.side_effect).__hash__()
 
     def __repr__(self):
-        return u'CorrectedCommand(script={}, side_effect={}, priority={})'.format(
-            self.script, self.side_effect, self.priority)
+        return u"CorrectedCommand(script={}, side_effect={}, priority={})".format(
+            self.script, self.side_effect, self.priority
+        )
 
     def _get_script(self):
         """Returns fixed commands script.
@@ -233,10 +265,11 @@ class CorrectedCommand(object):
 
         """
         if settings.repeat:
-            repeat_fuck = '{} --repeat {}--force-command {}'.format(
+            repeat_fuck = "{} --repeat {}--force-command {}".format(
                 get_alias(),
-                '--debug ' if settings.debug else '',
-                shell.quote(self.script))
+                "--debug " if settings.debug else "",
+                shell.quote(self.script),
+            )
             return shell.or_(self.script, repeat_fuck)
         else:
             return self.script
@@ -252,7 +285,10 @@ class CorrectedCommand(object):
         if settings.alter_history:
             shell.put_to_history(self.script)
         # This depends on correct setting of PYTHONIOENCODING by the alias:
-        logs.debug(u'PYTHONIOENCODING: {}'.format(
-            os.environ.get('PYTHONIOENCODING', '!!not-set!!')))
+        logs.debug(
+            u"PYTHONIOENCODING: {}".format(
+                os.environ.get("PYTHONIOENCODING", "!!not-set!!")
+            )
+        )
 
         print(self._get_script())

@@ -2,7 +2,7 @@ import re
 from thefuck.specific.git import git_support
 
 fix = u'git commit -m "Initial commit." && {command}'
-refspec_does_not_match = re.compile(r'src refspec \w+ does not match any\.')
+refspec_does_not_match = re.compile(r"src refspec \w+ does not match any\.")
 
 
 @git_support
