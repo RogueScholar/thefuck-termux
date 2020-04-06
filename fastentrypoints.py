@@ -67,8 +67,8 @@ def get_args(cls, dist, header=None):
             if re.search(r'[\\/]', name):
                 raise ValueError("Path separators not allowed in script names")
             script_text = TEMPLATE.format(
-                          ep.module_name, ep.attrs[0], '.'.join(ep.attrs),
-                          spec, group, name)
+                ep.module_name, ep.attrs[0], '.'.join(ep.attrs),
+                spec, group, name)
             args = cls._get_script_args(type_, name, header, script_text)
             for res in args:
                 yield res
@@ -106,5 +106,6 @@ def main():
                 setup.seek(0)
                 setup.truncate()
                 setup.write('import fastentrypoints\n' + setup_content)
+
 
 print(__name__)
