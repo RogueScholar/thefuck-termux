@@ -5,9 +5,9 @@ For example the `llc` program is in package `llvm` so this:
 should be:
     yay -S llvm
 """
-
+from thefuck.specific.archlinux import archlinux_env
+from thefuck.specific.archlinux import get_pkgfile
 from thefuck.utils import replace_command
-from thefuck.specific.archlinux import get_pkgfile, archlinux_env
 
 
 def match(command):

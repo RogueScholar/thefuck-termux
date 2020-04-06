@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-
 import pytest
+
 from thefuck.shells.tcsh import Tcsh
 
 

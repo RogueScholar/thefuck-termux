@@ -1,8 +1,14 @@
-from itertools import dropwhile, takewhile, islice
 import re
 import subprocess
-from thefuck.utils import replace_command, for_app, which, cache
+from itertools import dropwhile
+from itertools import islice
+from itertools import takewhile
+
 from thefuck.specific.sudo import sudo_support
+from thefuck.utils import cache
+from thefuck.utils import for_app
+from thefuck.utils import replace_command
+from thefuck.utils import which
 
 
 @sudo_support

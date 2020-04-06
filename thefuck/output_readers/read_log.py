@@ -1,7 +1,7 @@
-import os
-import shlex
 import mmap
+import os
 import re
+import shlex
 
 try:
     from shutil import get_terminal_size

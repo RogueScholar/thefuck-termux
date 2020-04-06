@@ -1,6 +1,8 @@
 import os
+
 import msvcrt
 import win_unicode_console
+
 from .. import const
 
 

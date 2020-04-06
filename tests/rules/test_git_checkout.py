@@ -1,6 +1,10 @@
-import pytest
 from io import BytesIO
-from thefuck.rules.git_checkout import match, get_branches, get_new_command
+
+import pytest
+
+from thefuck.rules.git_checkout import get_branches
+from thefuck.rules.git_checkout import get_new_command
+from thefuck.rules.git_checkout import match
 from thefuck.types import Command
 
 

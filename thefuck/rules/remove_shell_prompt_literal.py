@@ -7,7 +7,6 @@ Example:
 > $ git clone https://github.com/nvbn/thefuck.git
 bash: $: command not found...
 """
-
 import re
 
 

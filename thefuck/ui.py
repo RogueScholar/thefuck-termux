@@ -1,11 +1,12 @@
 # -*- encoding: utf-8 -*-
-
 import sys
+
+from . import const
+from . import logs
 from .conf import settings
 from .exceptions import NoRuleMatched
 from .system import get_key
 from .utils import get_alias
-from . import logs, const
 
 
 def read_actions():

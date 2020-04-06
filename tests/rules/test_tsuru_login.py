@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.tsuru_login import match, get_new_command
+
+from thefuck.rules.tsuru_login import get_new_command
+from thefuck.rules.tsuru_login import match
 from thefuck.types import Command
 
 

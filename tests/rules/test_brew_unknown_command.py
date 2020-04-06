@@ -1,6 +1,8 @@
 import pytest
-from thefuck.rules.brew_unknown_command import match, get_new_command
+
 from thefuck.rules.brew_unknown_command import _brew_commands
+from thefuck.rules.brew_unknown_command import get_new_command
+from thefuck.rules.brew_unknown_command import match
 from thefuck.types import Command
 
 

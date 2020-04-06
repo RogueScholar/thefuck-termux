@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.javac import match, get_new_command
+
+from thefuck.rules.javac import get_new_command
+from thefuck.rules.javac import match
 from thefuck.types import Command
 
 

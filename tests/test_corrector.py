@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
-
 import pytest
-from tests.utils import Rule, CorrectedCommand
-from thefuck import corrector, const
+
+from tests.utils import CorrectedCommand
+from tests.utils import Rule
+from thefuck import const
+from thefuck import corrector
+from thefuck.corrector import get_corrected_commands
+from thefuck.corrector import organize_commands
 from thefuck.system import Path
 from thefuck.types import Command
-from thefuck.corrector import get_corrected_commands, organize_commands
 
 
 class TestGetRules(object):

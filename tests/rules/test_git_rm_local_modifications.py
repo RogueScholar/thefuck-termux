@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.git_rm_local_modifications import match, get_new_command
+
+from thefuck.rules.git_rm_local_modifications import get_new_command
+from thefuck.rules.git_rm_local_modifications import match
 from thefuck.types import Command
 
 

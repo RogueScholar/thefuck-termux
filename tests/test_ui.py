@@ -1,10 +1,11 @@
 # -*- encoding: utf-8 -*-
+from itertools import islice
 
 import pytest
-from itertools import islice
+
+from thefuck import const
 from thefuck import ui
 from thefuck.types import CorrectedCommand
-from thefuck import const
 
 
 @pytest.fixture

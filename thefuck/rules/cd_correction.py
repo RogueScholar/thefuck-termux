@@ -1,10 +1,12 @@
 """Attempts to spellcheck and correct failed cd commands"""
-
 import os
+
 import six
-from thefuck.specific.sudo import sudo_support
+
 from thefuck.rules import cd_mkdir
-from thefuck.utils import for_app, get_close_matches
+from thefuck.specific.sudo import sudo_support
+from thefuck.utils import for_app
+from thefuck.utils import get_close_matches
 
 __author__ = "mmussomele"
 

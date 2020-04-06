@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.gradle_wrapper import match, get_new_command
+
+from thefuck.rules.gradle_wrapper import get_new_command
+from thefuck.rules.gradle_wrapper import match
 from thefuck.types import Command
 
 

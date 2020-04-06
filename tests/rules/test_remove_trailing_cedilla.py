@@ -1,5 +1,8 @@
 import pytest
-from thefuck.rules.remove_trailing_cedilla import match, get_new_command, CEDILLA
+
+from thefuck.rules.remove_trailing_cedilla import CEDILLA
+from thefuck.rules.remove_trailing_cedilla import get_new_command
+from thefuck.rules.remove_trailing_cedilla import match
 from thefuck.types import Command
 
 

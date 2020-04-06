@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-
 import pytest
 
 from thefuck.rules import switch_lang

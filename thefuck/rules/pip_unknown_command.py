@@ -1,6 +1,8 @@
 import re
-from thefuck.utils import replace_argument, for_app
+
 from thefuck.specific.sudo import sudo_support
+from thefuck.utils import for_app
+from thefuck.utils import replace_argument
 
 
 @sudo_support

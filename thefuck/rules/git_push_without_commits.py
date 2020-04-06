@@ -1,4 +1,5 @@
 import re
+
 from thefuck.specific.git import git_support
 
 fix = u'git commit -m "Initial commit." && {command}'

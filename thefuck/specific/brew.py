@@ -1,5 +1,7 @@
 import subprocess
-from ..utils import memoize, which
+
+from ..utils import memoize
+from ..utils import which
 
 
 brew_available = bool(which("brew"))

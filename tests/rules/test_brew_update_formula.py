@@ -1,6 +1,8 @@
 import pytest
+
+from thefuck.rules.brew_update_formula import get_new_command
+from thefuck.rules.brew_update_formula import match
 from thefuck.types import Command
-from thefuck.rules.brew_update_formula import get_new_command, match
 
 
 output = (

@@ -1,5 +1,8 @@
-from thefuck.utils import for_app, get_close_matches, replace_command
 import re
+
+from thefuck.utils import for_app
+from thefuck.utils import get_close_matches
+from thefuck.utils import replace_command
 
 
 def _get_failed_lifecycle(command):

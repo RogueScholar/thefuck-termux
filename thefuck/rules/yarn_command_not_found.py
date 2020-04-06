@@ -1,13 +1,13 @@
 import re
-from subprocess import Popen, PIPE
-from thefuck.utils import (
-    for_app,
-    eager,
-    replace_command,
-    replace_argument,
-    cache,
-    which,
-)
+from subprocess import PIPE
+from subprocess import Popen
+
+from thefuck.utils import cache
+from thefuck.utils import eager
+from thefuck.utils import for_app
+from thefuck.utils import replace_argument
+from thefuck.utils import replace_command
+from thefuck.utils import which
 
 regex = re.compile(r'error Command "(.*)" not found.')
 

@@ -1,4 +1,5 @@
 import os
+
 from thefuck.shells import shell
 
 

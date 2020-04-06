@@ -1,6 +1,8 @@
 import pytest
+
+from thefuck.rules.chmod_x import get_new_command
+from thefuck.rules.chmod_x import match
 from thefuck.types import Command
-from thefuck.rules.chmod_x import match, get_new_command
 
 
 @pytest.fixture

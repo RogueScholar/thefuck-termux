@@ -1,7 +1,9 @@
 import pytest
 
+from thefuck.rules.mercurial import extract_possibilities
+from thefuck.rules.mercurial import get_new_command
+from thefuck.rules.mercurial import match
 from thefuck.types import Command
-from thefuck.rules.mercurial import extract_possibilities, match, get_new_command
 
 
 @pytest.mark.parametrize(

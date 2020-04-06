@@ -1,6 +1,9 @@
 import re
-from thefuck.utils import for_app, replace_command
-from thefuck.specific.npm import get_scripts, npm_available
+
+from thefuck.specific.npm import get_scripts
+from thefuck.specific.npm import npm_available
+from thefuck.utils import for_app
+from thefuck.utils import replace_command
 
 enabled_by_default = npm_available
 

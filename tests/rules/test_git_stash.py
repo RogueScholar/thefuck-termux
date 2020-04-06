@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.git_stash import match, get_new_command
+
+from thefuck.rules.git_stash import get_new_command
+from thefuck.rules.git_stash import match
 from thefuck.types import Command
 
 

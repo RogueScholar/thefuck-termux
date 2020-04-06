@@ -1,10 +1,9 @@
 import pytest
-from tests.functional.plots import (
-    with_confirmation,
-    without_confirmation,
-    refuse_with_confirmation,
-    select_command_with_arrows,
-)
+
+from tests.functional.plots import refuse_with_confirmation
+from tests.functional.plots import select_command_with_arrows
+from tests.functional.plots import with_confirmation
+from tests.functional.plots import without_confirmation
 
 containers = (
     (

@@ -1,6 +1,10 @@
 import os
+
 import pytest
-from thefuck.rules.ssh_known_hosts import match, get_new_command, side_effect
+
+from thefuck.rules.ssh_known_hosts import get_new_command
+from thefuck.rules.ssh_known_hosts import match
+from thefuck.rules.ssh_known_hosts import side_effect
 from thefuck.types import Command
 
 

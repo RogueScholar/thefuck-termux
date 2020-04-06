@@ -7,8 +7,8 @@ ln: ‘barDir’: hard link not allowed for directory
 
 --> ln -s barDir barLink
 """
-
 import re
+
 from thefuck.specific.sudo import sudo_support
 
 

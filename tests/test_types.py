@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
-
 import os
-from subprocess import PIPE, STDOUT
-from mock import Mock
+from subprocess import PIPE
+from subprocess import STDOUT
+
 import pytest
-from tests.utils import CorrectedCommand, Rule
+from mock import Mock
+
+from tests.utils import CorrectedCommand
+from tests.utils import Rule
 from thefuck import const
 from thefuck.exceptions import EmptyCommand
 from thefuck.system import Path

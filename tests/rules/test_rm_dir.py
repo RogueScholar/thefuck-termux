@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.rm_dir import match, get_new_command
+
+from thefuck.rules.rm_dir import get_new_command
+from thefuck.rules.rm_dir import match
 from thefuck.types import Command
 
 

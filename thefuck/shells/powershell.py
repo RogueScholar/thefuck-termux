@@ -1,6 +1,9 @@
-from subprocess import Popen, PIPE
+from subprocess import PIPE
+from subprocess import Popen
+
 from ..utils import DEVNULL
-from .generic import Generic, ShellConfiguration
+from .generic import Generic
+from .generic import ShellConfiguration
 
 
 class Powershell(Generic):

@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.cp_create_destination import match, get_new_command
+
+from thefuck.rules.cp_create_destination import get_new_command
+from thefuck.rules.cp_create_destination import match
 from thefuck.types import Command
 
 

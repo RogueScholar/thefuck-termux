@@ -1,7 +1,13 @@
 import os
 import shlex
-from subprocess import Popen, PIPE, STDOUT
-from psutil import AccessDenied, Process, TimeoutExpired
+from subprocess import PIPE
+from subprocess import Popen
+from subprocess import STDOUT
+
+from psutil import AccessDenied
+from psutil import Process
+from psutil import TimeoutExpired
+
 from .. import logs
 from ..conf import settings
 

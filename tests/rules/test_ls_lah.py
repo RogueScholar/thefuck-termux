@@ -1,4 +1,5 @@
-from thefuck.rules.ls_lah import match, get_new_command
+from thefuck.rules.ls_lah import get_new_command
+from thefuck.rules.ls_lah import match
 from thefuck.types import Command
 
 

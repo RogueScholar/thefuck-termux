@@ -1,5 +1,8 @@
 import pytest
-from thefuck.rules.open import is_arg_url, match, get_new_command
+
+from thefuck.rules.open import get_new_command
+from thefuck.rules.open import is_arg_url
+from thefuck.rules.open import match
 from thefuck.types import Command
 
 

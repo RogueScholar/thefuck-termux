@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-
 import pytest
-from thefuck.rules.apt_list_upgradable import get_new_command, match
+
+from thefuck.rules.apt_list_upgradable import get_new_command
+from thefuck.rules.apt_list_upgradable import match
 from thefuck.types import Command
 
 full_english_output = """

@@ -1,7 +1,10 @@
-import pytest
 from io import BytesIO
+
+import pytest
+
+from thefuck.rules.docker_not_command import get_new_command
+from thefuck.rules.docker_not_command import match
 from thefuck.types import Command
-from thefuck.rules.docker_not_command import get_new_command, match
 
 
 _DOCKER_SWARM_OUTPUT = """

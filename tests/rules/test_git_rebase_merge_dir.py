@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.git_rebase_merge_dir import match, get_new_command
+
+from thefuck.rules.git_rebase_merge_dir import get_new_command
+from thefuck.rules.git_rebase_merge_dir import match
 from thefuck.types import Command
 
 

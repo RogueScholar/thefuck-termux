@@ -1,4 +1,5 @@
 import re
+
 from thefuck.specific.git import git_support
 
 error_pattern = "fatal: bad flag '(.*?)' used after filename"

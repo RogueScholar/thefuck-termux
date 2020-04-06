@@ -1,6 +1,9 @@
-import pytest
 from io import BytesIO
-from thefuck.rules.gradle_no_task import match, get_new_command
+
+import pytest
+
+from thefuck.rules.gradle_no_task import get_new_command
+from thefuck.rules.gradle_no_task import match
 from thefuck.types import Command
 
 gradle_tasks = b"""

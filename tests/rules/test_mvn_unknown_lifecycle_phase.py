@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.mvn_unknown_lifecycle_phase import match, get_new_command
+
+from thefuck.rules.mvn_unknown_lifecycle_phase import get_new_command
+from thefuck.rules.mvn_unknown_lifecycle_phase import match
 from thefuck.types import Command
 
 

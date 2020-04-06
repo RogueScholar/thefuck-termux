@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.quotation_marks import match, get_new_command
+
+from thefuck.rules.quotation_marks import get_new_command
+from thefuck.rules.quotation_marks import match
 from thefuck.types import Command
 
 

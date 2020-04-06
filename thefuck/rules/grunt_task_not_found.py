@@ -1,6 +1,11 @@
 import re
-from subprocess import Popen, PIPE
-from thefuck.utils import for_app, eager, get_closest, cache
+from subprocess import PIPE
+from subprocess import Popen
+
+from thefuck.utils import cache
+from thefuck.utils import eager
+from thefuck.utils import for_app
+from thefuck.utils import get_closest
 
 regex = re.compile(r'Warning: Task "(.*)" not found.')
 

@@ -1,4 +1,5 @@
-from thefuck.rules.systemctl import match, get_new_command
+from thefuck.rules.systemctl import get_new_command
+from thefuck.rules.systemctl import match
 from thefuck.types import Command
 
 

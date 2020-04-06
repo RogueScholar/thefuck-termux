@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.missing_space_before_subcommand import match, get_new_command
+
+from thefuck.rules.missing_space_before_subcommand import get_new_command
+from thefuck.rules.missing_space_before_subcommand import match
 from thefuck.types import Command
 
 

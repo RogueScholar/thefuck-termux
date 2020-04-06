@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.git_push_different_branch_names import get_new_command, match
+
+from thefuck.rules.git_push_different_branch_names import get_new_command
+from thefuck.rules.git_push_different_branch_names import match
 from thefuck.types import Command
 
 

@@ -1,12 +1,13 @@
 # -*- encoding: utf-8 -*-
-
+import sys
 from contextlib import contextmanager
 from datetime import datetime
-import sys
 from traceback import format_exception
+
 import colorama
-from .conf import settings
+
 from . import const
+from .conf import settings
 
 
 def color(color_):

@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
-
 import os
-import pytest
 import zipfile
-from thefuck.rules.dirty_unzip import match, get_new_command, side_effect
-from thefuck.types import Command
 from unicodedata import normalize
+
+import pytest
+
+from thefuck.rules.dirty_unzip import get_new_command
+from thefuck.rules.dirty_unzip import match
+from thefuck.rules.dirty_unzip import side_effect
+from thefuck.types import Command
 
 
 @pytest.fixture

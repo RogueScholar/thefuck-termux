@@ -1,6 +1,8 @@
 import pytest
+
+from thefuck.rules.brew_uninstall import get_new_command
+from thefuck.rules.brew_uninstall import match
 from thefuck.types import Command
-from thefuck.rules.brew_uninstall import get_new_command, match
 
 
 @pytest.fixture

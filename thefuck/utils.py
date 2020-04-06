@@ -4,12 +4,15 @@ import pickle
 import re
 import shelve
 import sys
-import six
-from decorator import decorator
 from difflib import get_close_matches as difflib_get_close_matches
 from functools import wraps
-from .logs import warn, exception
+
+import six
+from decorator import decorator
+
 from .conf import settings
+from .logs import exception
+from .logs import warn
 from .system import Path
 
 DEVNULL = open(os.devnull, "w")

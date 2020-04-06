@@ -1,6 +1,11 @@
 import re
 import subprocess
-from thefuck.utils import for_app, eager, replace_command, cache, which
+
+from thefuck.utils import cache
+from thefuck.utils import eager
+from thefuck.utils import for_app
+from thefuck.utils import replace_command
+from thefuck.utils import which
 
 
 @for_app("gem")

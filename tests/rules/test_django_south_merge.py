@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.django_south_merge import match, get_new_command
+
+from thefuck.rules.django_south_merge import get_new_command
+from thefuck.rules.django_south_merge import match
 from thefuck.types import Command
 
 

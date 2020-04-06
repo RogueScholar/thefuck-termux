@@ -1,6 +1,7 @@
 import pytest
 
-from thefuck.rules.az_cli import match, get_new_command
+from thefuck.rules.az_cli import get_new_command
+from thefuck.rules.az_cli import match
 from thefuck.types import Command
 
 

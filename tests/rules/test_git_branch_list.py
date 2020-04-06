@@ -1,4 +1,5 @@
-from thefuck.rules.git_branch_list import match, get_new_command
+from thefuck.rules.git_branch_list import get_new_command
+from thefuck.rules.git_branch_list import match
 from thefuck.shells import shell
 from thefuck.types import Command
 

@@ -1,8 +1,9 @@
 import sys
-from .conf import settings
-from .types import Rule
-from .system import Path
+
 from . import logs
+from .conf import settings
+from .system import Path
+from .types import Rule
 
 
 def get_loaded_rules(rules_paths):

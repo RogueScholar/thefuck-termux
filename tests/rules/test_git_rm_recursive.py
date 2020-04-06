@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.git_rm_recursive import match, get_new_command
+
+from thefuck.rules.git_rm_recursive import get_new_command
+from thefuck.rules.git_rm_recursive import match
 from thefuck.types import Command
 
 

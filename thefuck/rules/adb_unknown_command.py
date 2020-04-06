@@ -1,4 +1,6 @@
-from thefuck.utils import is_app, get_closest, replace_argument
+from thefuck.utils import get_closest
+from thefuck.utils import is_app
+from thefuck.utils import replace_argument
 
 
 _ADB_COMMANDS = (

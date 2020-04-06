@@ -1,4 +1,5 @@
 import re
+
 from thefuck.shells import shell
 
 

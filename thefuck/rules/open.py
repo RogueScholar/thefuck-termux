@@ -6,7 +6,8 @@
 # Perhaps you meant 'http://github.com'?
 #
 from thefuck.shells import shell
-from thefuck.utils import eager, for_app
+from thefuck.utils import eager
+from thefuck.utils import for_app
 
 
 def is_arg_url(command):

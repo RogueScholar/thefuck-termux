@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.git_diff_no_index import match, get_new_command
+
+from thefuck.rules.git_diff_no_index import get_new_command
+from thefuck.rules.git_diff_no_index import match
 from thefuck.types import Command
 
 

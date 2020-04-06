@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
-
-from thefuck.rules.fix_alt_space import match, get_new_command
+from thefuck.rules.fix_alt_space import get_new_command
+from thefuck.rules.fix_alt_space import match
 from thefuck.types import Command
 
 

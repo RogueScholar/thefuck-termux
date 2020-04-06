@@ -1,13 +1,16 @@
-from imp import load_source
 import os
 import sys
+from imp import load_source
+
 from . import logs
-from .shells import shell
 from .conf import settings
-from .const import DEFAULT_PRIORITY, ALL_ENABLED
+from .const import ALL_ENABLED
+from .const import DEFAULT_PRIORITY
 from .exceptions import EmptyCommand
-from .utils import get_alias, format_raw_script
 from .output_readers import get_output
+from .shells import shell
+from .utils import format_raw_script
+from .utils import get_alias
 
 
 class Command(object):

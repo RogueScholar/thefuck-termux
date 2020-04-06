@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
-
-from mock import Mock, patch
-from psutil import AccessDenied, TimeoutExpired
+from mock import Mock
+from mock import patch
+from psutil import AccessDenied
+from psutil import TimeoutExpired
 
 from thefuck.output_readers import rerun
 

@@ -1,6 +1,8 @@
 import pytest
+
+from thefuck.rules.yarn_command_replaced import get_new_command
+from thefuck.rules.yarn_command_replaced import match
 from thefuck.types import Command
-from thefuck.rules.yarn_command_replaced import match, get_new_command
 
 
 output = (

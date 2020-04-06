@@ -1,7 +1,12 @@
 import re
-from subprocess import PIPE, Popen
+from subprocess import PIPE
+from subprocess import Popen
 
-from thefuck.utils import cache, for_app, replace_argument, replace_command, which
+from thefuck.utils import cache
+from thefuck.utils import for_app
+from thefuck.utils import replace_argument
+from thefuck.utils import replace_command
+from thefuck.utils import which
 
 COMMON_TYPOS = {
     "list": ["versions", "install --list"],

@@ -1,6 +1,8 @@
 import pytest
+
+from thefuck.rules.brew_link import get_new_command
+from thefuck.rules.brew_link import match
 from thefuck.types import Command
-from thefuck.rules.brew_link import get_new_command, match
 
 
 @pytest.fixture

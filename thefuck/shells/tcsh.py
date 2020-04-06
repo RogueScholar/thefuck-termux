@@ -1,7 +1,10 @@
-from subprocess import Popen, PIPE
-from time import time
 import os
-from ..utils import DEVNULL, memoize
+from subprocess import PIPE
+from subprocess import Popen
+from time import time
+
+from ..utils import DEVNULL
+from ..utils import memoize
 from .generic import Generic
 
 

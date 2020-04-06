@@ -1,7 +1,9 @@
 from io import BytesIO
 
 import pytest
-from thefuck.rules.port_already_in_use import match, get_new_command
+
+from thefuck.rules.port_already_in_use import get_new_command
+from thefuck.rules.port_already_in_use import match
 from thefuck.types import Command
 
 outputs = [

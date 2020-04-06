@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.sudo_command_from_user_path import match, get_new_command
+
+from thefuck.rules.sudo_command_from_user_path import get_new_command
+from thefuck.rules.sudo_command_from_user_path import match
 from thefuck.types import Command
 
 

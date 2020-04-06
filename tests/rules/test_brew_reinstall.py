@@ -1,6 +1,8 @@
 import pytest
+
+from thefuck.rules.brew_reinstall import get_new_command
+from thefuck.rules.brew_reinstall import match
 from thefuck.types import Command
-from thefuck.rules.brew_reinstall import get_new_command, match
 
 
 output = (

@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.unsudo import match, get_new_command
+
+from thefuck.rules.unsudo import get_new_command
+from thefuck.rules.unsudo import match
 from thefuck.types import Command
 
 

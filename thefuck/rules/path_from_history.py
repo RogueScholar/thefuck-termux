@@ -1,8 +1,11 @@
-from collections import Counter
 import re
-from thefuck.system import Path
-from thefuck.utils import get_valid_history_without_current, memoize, replace_argument
+from collections import Counter
+
 from thefuck.shells import shell
+from thefuck.system import Path
+from thefuck.utils import get_valid_history_without_current
+from thefuck.utils import memoize
+from thefuck.utils import replace_argument
 
 
 patterns = [

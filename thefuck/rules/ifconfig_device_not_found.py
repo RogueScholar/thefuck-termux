@@ -1,5 +1,8 @@
 import subprocess
-from thefuck.utils import for_app, replace_command, eager
+
+from thefuck.utils import eager
+from thefuck.utils import for_app
+from thefuck.utils import replace_command
 
 
 @for_app("ifconfig")

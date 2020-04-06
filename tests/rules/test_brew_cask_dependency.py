@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.brew_cask_dependency import match, get_new_command
+
+from thefuck.rules.brew_cask_dependency import get_new_command
+from thefuck.rules.brew_cask_dependency import match
 from thefuck.types import Command
 
 

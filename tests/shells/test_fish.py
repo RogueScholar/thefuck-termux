@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-
 import pytest
+
 from thefuck.const import ARGUMENT_PLACEHOLDER
 from thefuck.shells import Fish
 

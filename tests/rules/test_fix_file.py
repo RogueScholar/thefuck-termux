@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+import os
 
 import pytest
-import os
-from thefuck.rules.fix_file import match, get_new_command
+
+from thefuck.rules.fix_file import get_new_command
+from thefuck.rules.fix_file import match
 from thefuck.types import Command
 
 

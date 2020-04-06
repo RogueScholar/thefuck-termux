@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.prove_recursively import match, get_new_command
+
+from thefuck.rules.prove_recursively import get_new_command
+from thefuck.rules.prove_recursively import match
 from thefuck.types import Command
 
 

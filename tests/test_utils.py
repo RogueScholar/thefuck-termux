@@ -1,23 +1,24 @@
 # -*- coding: utf-8 -*-
+import warnings
 
 import pytest
-import warnings
-from mock import Mock, call, patch
-from thefuck.utils import (
-    default_settings,
-    memoize,
-    get_closest,
-    get_all_executables,
-    replace_argument,
-    get_all_matched_commands,
-    is_app,
-    for_app,
-    cache,
-    get_valid_history_without_current,
-    _cache,
-    get_close_matches,
-)
+from mock import call
+from mock import Mock
+from mock import patch
+
 from thefuck.types import Command
+from thefuck.utils import _cache
+from thefuck.utils import cache
+from thefuck.utils import default_settings
+from thefuck.utils import for_app
+from thefuck.utils import get_all_executables
+from thefuck.utils import get_all_matched_commands
+from thefuck.utils import get_close_matches
+from thefuck.utils import get_closest
+from thefuck.utils import get_valid_history_without_current
+from thefuck.utils import is_app
+from thefuck.utils import memoize
+from thefuck.utils import replace_argument
 
 
 @pytest.mark.parametrize(

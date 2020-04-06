@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.pacman_invalid_option import get_new_command, match
+
+from thefuck.rules.pacman_invalid_option import get_new_command
+from thefuck.rules.pacman_invalid_option import match
 from thefuck.types import Command
 
 good_output = """community/shared_meataxe 1.0-3

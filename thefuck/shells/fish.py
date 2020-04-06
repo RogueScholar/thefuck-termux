@@ -1,12 +1,16 @@
-from subprocess import Popen, PIPE
-from time import time
 import os
 import sys
+from subprocess import PIPE
+from subprocess import Popen
+from time import time
+
 import six
+
 from .. import logs
 from ..conf import settings
 from ..const import ARGUMENT_PLACEHOLDER
-from ..utils import DEVNULL, cache
+from ..utils import cache
+from ..utils import DEVNULL
 from .generic import Generic
 
 

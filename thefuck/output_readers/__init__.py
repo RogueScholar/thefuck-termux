@@ -1,5 +1,7 @@
+from . import read_log
+from . import rerun
+from . import shell_logger
 from ..conf import settings
-from . import read_log, rerun, shell_logger
 
 
 def get_output(script, expanded):

@@ -1,7 +1,10 @@
 import os
 import re
-from thefuck.utils import get_closest, replace_argument
-from thefuck.specific.brew import get_brew_path_prefix, brew_available
+
+from thefuck.specific.brew import brew_available
+from thefuck.specific.brew import get_brew_path_prefix
+from thefuck.utils import get_closest
+from thefuck.utils import replace_argument
 
 enabled_by_default = brew_available
 

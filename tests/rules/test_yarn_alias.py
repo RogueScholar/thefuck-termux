@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.yarn_alias import match, get_new_command
+
+from thefuck.rules.yarn_alias import get_new_command
+from thefuck.rules.yarn_alias import match
 from thefuck.types import Command
 
 

@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.scm_correction import match, get_new_command
+
+from thefuck.rules.scm_correction import get_new_command
+from thefuck.rules.scm_correction import match
 from thefuck.types import Command
 
 

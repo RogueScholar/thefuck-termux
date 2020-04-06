@@ -1,11 +1,9 @@
 import pytest
 
+from thefuck.rules.git_push_without_commits import fix
+from thefuck.rules.git_push_without_commits import get_new_command
+from thefuck.rules.git_push_without_commits import match
 from thefuck.types import Command
-from thefuck.rules.git_push_without_commits import (
-    fix,
-    get_new_command,
-    match,
-)
 
 command = "git push -u origin master"
 expected_error = """

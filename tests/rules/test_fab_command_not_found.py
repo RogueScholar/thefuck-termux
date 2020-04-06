@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.fab_command_not_found import match, get_new_command
+
+from thefuck.rules.fab_command_not_found import get_new_command
+from thefuck.rules.fab_command_not_found import match
 from thefuck.types import Command
 
 output = """

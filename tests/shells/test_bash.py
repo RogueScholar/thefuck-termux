@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-
 import os
+
 import pytest
+
 from thefuck.shells import Bash
 
 

@@ -1,13 +1,17 @@
-from pprint import pformat
 import os
 import sys
 from difflib import SequenceMatcher
-from .. import logs, types, const
+from pprint import pformat
+
+from .. import const
+from .. import logs
+from .. import types
 from ..conf import settings
 from ..corrector import get_corrected_commands
 from ..exceptions import EmptyCommand
 from ..ui import select_command
-from ..utils import get_alias, get_all_executables
+from ..utils import get_alias
+from ..utils import get_all_executables
 
 
 def _get_raw_command(known_args):

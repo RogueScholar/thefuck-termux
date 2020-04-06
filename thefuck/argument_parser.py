@@ -1,5 +1,7 @@
 import sys
-from argparse import ArgumentParser, SUPPRESS
+from argparse import ArgumentParser
+from argparse import SUPPRESS
+
 from .const import ARGUMENT_PLACEHOLDER
 from .utils import get_alias
 

@@ -1,6 +1,8 @@
 import pytest
-from thefuck.rules.brew_install import match, get_new_command
+
 from thefuck.rules.brew_install import _get_formulas
+from thefuck.rules.brew_install import get_new_command
+from thefuck.rules.brew_install import match
 from thefuck.types import Command
 
 

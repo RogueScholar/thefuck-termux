@@ -1,11 +1,15 @@
-from time import time
 import os
-from subprocess import Popen, PIPE
+from subprocess import PIPE
+from subprocess import Popen
 from tempfile import gettempdir
+from time import time
 from uuid import uuid4
+
 from ..conf import settings
-from ..const import ARGUMENT_PLACEHOLDER, USER_COMMAND_MARK
-from ..utils import DEVNULL, memoize
+from ..const import ARGUMENT_PLACEHOLDER
+from ..const import USER_COMMAND_MARK
+from ..utils import DEVNULL
+from ..utils import memoize
 from .generic import Generic
 
 

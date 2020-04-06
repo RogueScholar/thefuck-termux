@@ -1,7 +1,11 @@
 from io import BytesIO
+
 import pytest
+
+from thefuck.rules.dnf_no_such_command import _get_operations
+from thefuck.rules.dnf_no_such_command import get_new_command
+from thefuck.rules.dnf_no_such_command import match
 from thefuck.types import Command
-from thefuck.rules.dnf_no_such_command import match, get_new_command, _get_operations
 
 
 help_text = b"""usage: dnf [options] COMMAND

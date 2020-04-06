@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-
 import pytest
+
+from thefuck.rules.heroku_not_command import get_new_command
+from thefuck.rules.heroku_not_command import match
 from thefuck.types import Command
-from thefuck.rules.heroku_not_command import match, get_new_command
 
 
 suggest_output = """

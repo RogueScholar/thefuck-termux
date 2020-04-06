@@ -1,8 +1,11 @@
 #!/usr/bin/env python
-from setuptools import setup, find_packages
-import pkg_resources
-import sys
 import os
+import sys
+
+import pkg_resources
+from setuptools import find_packages
+from setuptools import setup
+
 import fastentrypoints
 
 

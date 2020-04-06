@@ -1,7 +1,10 @@
-import pytest
 from io import BytesIO
+
+import pytest
+
+from thefuck.rules.npm_missing_script import get_new_command
+from thefuck.rules.npm_missing_script import match
 from thefuck.types import Command
-from thefuck.rules.npm_missing_script import match, get_new_command
 
 output = """
 npm ERR! Linux 4.4.0-31-generic

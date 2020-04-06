@@ -1,12 +1,14 @@
 import io
 import os
 import shlex
-import six
 from collections import namedtuple
-from ..logs import warn
-from ..utils import memoize
+
+import six
+
 from ..conf import settings
+from ..logs import warn
 from ..system import Path
+from ..utils import memoize
 
 
 ShellConfiguration = namedtuple(

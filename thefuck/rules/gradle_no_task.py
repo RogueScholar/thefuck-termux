@@ -1,6 +1,10 @@
 import re
-from subprocess import Popen, PIPE
-from thefuck.utils import for_app, eager, replace_command
+from subprocess import PIPE
+from subprocess import Popen
+
+from thefuck.utils import eager
+from thefuck.utils import for_app
+from thefuck.utils import replace_command
 
 regex = re.compile(r"Task '(.*)' (is ambiguous|not found)")
 

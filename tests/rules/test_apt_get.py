@@ -1,5 +1,7 @@
 import pytest
-from thefuck.rules.apt_get import match, get_new_command
+
+from thefuck.rules.apt_get import get_new_command
+from thefuck.rules.apt_get import match
 from thefuck.types import Command
 
 

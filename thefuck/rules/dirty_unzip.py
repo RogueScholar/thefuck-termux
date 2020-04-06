@@ -1,7 +1,8 @@
 import os
 import zipfile
-from thefuck.utils import for_app
+
 from thefuck.shells import shell
+from thefuck.utils import for_app
 
 
 def _is_bad_zip(file):
