@@ -1,4 +1,5 @@
 import os
+
 from thefuck.utils import for_app
 
 
@@ -8,10 +9,10 @@ def _get_actual_file(parts):
             return part
 
 
-@for_app('grep', 'egrep')
+@for_app("grep", "egrep")
 def match(command):
-    return ': No such file or directory' in command.stderr \
-        and _get_actual_file(command.script_parts)
+    return ": No such file or directory" in command.output and _get_actual_file(
+        command.script_parts)
 
 
 def get_new_command(command):
@@ -20,4 +21,4 @@ def get_new_command(command):
     # Moves file to the end of the script:
     parts.remove(actual_file)
     parts.append(actual_file)
-    return ' '.join(parts)
+    return " ".join(parts)

@@ -1,19 +1,21 @@
-from thefuck.utils import replace_command, for_app
-from difflib import get_close_matches
 import re
+
+from thefuck.utils import for_app
+from thefuck.utils import get_close_matches
+from thefuck.utils import replace_command
 
 
 def _get_failed_lifecycle(command):
     return re.search(r'\[ERROR\] Unknown lifecycle phase "(.+)"',
-                     command.stdout)
+                     command.output)
 
 
 def _getavailable_lifecycles(command):
-    return re.search(
-        r'Available lifecycle phases are: (.+) -> \[Help 1\]', command.stdout)
+    return re.search(r"Available lifecycle phases are: (.+) -> \[Help 1\]",
+                     command.output)
 
 
-@for_app('mvn')
+@for_app("mvn")
 def match(command):
     failed_lifecycle = _get_failed_lifecycle(command)
     available_lifecycles = _getavailable_lifecycles(command)
@@ -25,8 +27,9 @@ def get_new_command(command):
     available_lifecycles = _getavailable_lifecycles(command)
     if available_lifecycles and failed_lifecycle:
         selected_lifecycle = get_close_matches(
-            failed_lifecycle.group(1), available_lifecycles.group(1).split(", "),
-            3, 0.6)
-        return replace_command(command, failed_lifecycle.group(1), selected_lifecycle)
+            failed_lifecycle.group(1),
+            available_lifecycles.group(1).split(", "))
+        return replace_command(command, failed_lifecycle.group(1),
+                               selected_lifecycle)
     else:
         return []

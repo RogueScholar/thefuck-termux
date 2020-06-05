@@ -1,6 +1,6 @@
 import re
-from thefuck.shells import shell
 
+from thefuck.shells import shell
 
 patterns = (
     r"mv: cannot move '[^']*' to '([^']*)': No such file or directory",
@@ -12,7 +12,7 @@ patterns = (
 
 def match(command):
     for pattern in patterns:
-        if re.search(pattern, command.stderr):
+        if re.search(pattern, command.output):
             return True
 
     return False
@@ -20,11 +20,11 @@ def match(command):
 
 def get_new_command(command):
     for pattern in patterns:
-        file = re.findall(pattern, command.stderr)
+        file = re.findall(pattern, command.output)
 
         if file:
             file = file[0]
-            dir = file[0:file.rfind('/')]
+            dir = file[0:file.rfind("/")]
 
-            formatme = shell.and_('mkdir -p {}', '{}')
+            formatme = shell.and_("mkdir -p {}", "{}")
             return formatme.format(dir, command.script)

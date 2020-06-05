@@ -1,11 +1,13 @@
 import pytest
-from thefuck.rules.django_south_ghost import match, get_new_command
-from tests.utils import Command
+
+from thefuck.rules.django_south_ghost import get_new_command
+from thefuck.rules.django_south_ghost import match
+from thefuck.types import Command
 
 
 @pytest.fixture
-def stderr():
-    return '''Traceback (most recent call last):
+def output():
+    return """Traceback (most recent call last):
   File "/home/nvbn/work/.../bin/python", line 42, in <module>
     exec(compile(__file__f.read(), __file__, "exec"))
   File "/home/nvbn/work/.../app/manage.py", line 34, in <module>
@@ -24,7 +26,7 @@ def stderr():
     applied_all = check_migration_histories(applied_all, delete_ghosts, ignore_ghosts)
   File "/home/nvbn/work/.../app/lib/south/migration/__init__.py", line 88, in check_migration_histories
     raise exceptions.GhostMigrations(ghosts)
-south.exceptions.GhostMigrations: 
+south.exceptions.GhostMigrations:
 
  ! These migrations are in the database but not on disk:
     <app1: 0033_auto__...>
@@ -37,17 +39,18 @@ south.exceptions.GhostMigrations:
  ! I'm not trusting myself; either fix this yourself by fiddling
  ! with the south_migrationhistory table, or pass --delete-ghost-migrations
  ! to South to have it delete ALL of these records (this may not be good).
-'''
+"""  # noqa
 
 
-def test_match(stderr):
-    assert match(Command('./manage.py migrate', stderr=stderr))
-    assert match(Command('python manage.py migrate', stderr=stderr))
-    assert not match(Command('./manage.py migrate'))
-    assert not match(Command('app migrate', stderr=stderr))
-    assert not match(Command('./manage.py test', stderr=stderr))
+def test_match(output):
+    assert match(Command("./manage.py migrate", output))
+    assert match(Command("python manage.py migrate", output))
+    assert not match(Command("./manage.py migrate", ""))
+    assert not match(Command("app migrate", output))
+    assert not match(Command("./manage.py test", output))
 
 
 def test_get_new_command():
-    assert get_new_command(Command('./manage.py migrate auth'))\
-        == './manage.py migrate auth --delete-ghost-migrations'
+    assert (get_new_command(
+        Command("./manage.py migrate auth",
+                "")) == "./manage.py migrate auth --delete-ghost-migrations")

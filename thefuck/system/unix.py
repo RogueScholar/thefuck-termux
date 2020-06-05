@@ -1,7 +1,11 @@
+import os
 import sys
-import tty
 import termios
+import tty
+from distutils.spawn import find_executable
+
 import colorama
+
 from .. import const
 
 init_output = colorama.init
@@ -20,16 +24,36 @@ def getch():
 def get_key():
     ch = getch()
 
-    if ch == '\x03':
-        return const.KEY_CTRL_C
-    elif ch == '\x1b':
+    if ch in const.KEY_MAPPING:
+        return const.KEY_MAPPING[ch]
+    elif ch == "\x1b":
         next_ch = getch()
-        if next_ch == '[':
+        if next_ch == "[":
             last_ch = getch()
 
-            if last_ch == 'A':
+            if last_ch == "A":
                 return const.KEY_UP
-            elif last_ch == 'B':
+            elif last_ch == "B":
                 return const.KEY_DOWN
 
     return ch
+
+
+def open_command(arg):
+    if find_executable("xdg-open"):
+        return "xdg-open " + arg
+    return "open " + arg
+
+
+try:
+    from pathlib import Path
+except ImportError:
+    from pathlib2 import Path
+
+
+def _expanduser(self):
+    return self.__class__(os.path.expanduser(str(self)))
+
+
+if not hasattr(Path, "expanduser"):
+    Path.expanduser = _expanduser

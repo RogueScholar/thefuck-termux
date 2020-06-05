@@ -1,10 +1,9 @@
-try:
-    from pathlib import Path
-except ImportError:
-    from pathlib2 import Path
-from .conf import settings
-from .types import Rule
+import sys
+
 from . import logs
+from .conf import settings
+from .system import Path
+from .types import Rule
 
 
 def get_loaded_rules(rules_paths):
@@ -15,10 +14,28 @@ def get_loaded_rules(rules_paths):
 
     """
     for path in rules_paths:
-        if path.name != '__init__.py':
+        if path.name != "__init__.py":
             rule = Rule.from_path(path)
             if rule.is_enabled:
                 yield rule
+
+
+def get_rules_import_paths():
+    """Yields all rules import paths.
+
+    :rtype: Iterable[Path]
+
+    """
+    # Bundled rules:
+    yield Path(__file__).parent.joinpath("rules")
+    # Rules defined by user:
+    yield settings.user_dir.joinpath("rules")
+    # Packages with third-party rules:
+    for path in sys.path:
+        for contrib_module in Path(path).glob("thefuck_contrib_*"):
+            contrib_rules = contrib_module.joinpath("rules")
+            if contrib_rules.is_dir():
+                yield contrib_rules
 
 
 def get_rules():
@@ -27,12 +44,11 @@ def get_rules():
     :rtype: [Rule]
 
     """
-    bundled = Path(__file__).parent \
-        .joinpath('rules') \
-        .glob('*.py')
-    user = settings.user_dir.joinpath('rules').glob('*.py')
-    return sorted(get_loaded_rules(sorted(bundled) + sorted(user)),
-                  key=lambda rule: rule.priority)
+    paths = [
+        rule_path for path in get_rules_import_paths()
+        for rule_path in sorted(path.glob("*.py"))
+    ]
+    return sorted(get_loaded_rules(paths), key=lambda rule: rule.priority)
 
 
 def organize_commands(corrected_commands):
@@ -49,16 +65,18 @@ def organize_commands(corrected_commands):
         return
 
     without_duplicates = {
-        command for command in sorted(
-            corrected_commands, key=lambda command: command.priority)
-        if command != first_command}
+        command
+        for command in sorted(corrected_commands,
+                              key=lambda command: command.priority)
+        if command != first_command
+    }
 
     sorted_commands = sorted(
         without_duplicates,
         key=lambda corrected_command: corrected_command.priority)
 
-    logs.debug('Corrected commands: '.format(
-        ', '.join(u'{}'.format(cmd) for cmd in [first_command] + sorted_commands)))
+    logs.debug("Corrected commands: ".format(", ".join(
+        u"{}".format(cmd) for cmd in [first_command] + sorted_commands)))
 
     for command in sorted_commands:
         yield command
@@ -72,7 +90,6 @@ def get_corrected_commands(command):
 
     """
     corrected_commands = (
-        corrected for rule in get_rules()
-        if rule.is_match(command)
+        corrected for rule in get_rules() if rule.is_match(command)
         for corrected in rule.get_corrected_commands(command))
     return organize_commands(corrected_commands)

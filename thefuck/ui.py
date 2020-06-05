@@ -1,10 +1,12 @@
 # -*- encoding: utf-8 -*-
-
 import sys
+
+from . import const
+from . import logs
 from .conf import settings
 from .exceptions import NoRuleMatched
 from .system import get_key
-from . import logs, const
+from .utils import get_alias
 
 
 def read_actions():
@@ -12,13 +14,14 @@ def read_actions():
     while True:
         key = get_key()
 
-        if key in (const.KEY_UP, 'k'):
+        # Handle arrows, j/k (qwerty), and n/e (colemak)
+        if key in (const.KEY_UP, const.KEY_CTRL_N, "k", "e"):
             yield const.ACTION_PREVIOUS
-        elif key in (const.KEY_DOWN, 'j'):
+        elif key in (const.KEY_DOWN, const.KEY_CTRL_P, "j", "n"):
             yield const.ACTION_NEXT
-        elif key in (const.KEY_CTRL_C, 'q'):
+        elif key in (const.KEY_CTRL_C, "q"):
             yield const.ACTION_ABORT
-        elif key in ('\n', '\r'):
+        elif key in ("\n", "\r"):
             yield const.ACTION_SELECT
 
 
@@ -50,7 +53,7 @@ class CommandSelector(object):
 
     @property
     def value(self):
-        """:rtype hefuck.types.CorrectedCommand"""
+        """:rtype thefuck.types.CorrectedCommand"""
         return self._commands[self._index]
 
 
@@ -68,7 +71,8 @@ def select_command(corrected_commands):
     try:
         selector = CommandSelector(corrected_commands)
     except NoRuleMatched:
-        logs.failed('No fucks given')
+        logs.failed("No fucks given" if get_alias() ==
+                    "fuck" else "Nothing found")
         return
 
     if not settings.require_confirmation:
@@ -79,10 +83,10 @@ def select_command(corrected_commands):
 
     for action in read_actions():
         if action == const.ACTION_SELECT:
-            sys.stderr.write('\n')
+            sys.stderr.write("\n")
             return selector.value
         elif action == const.ACTION_ABORT:
-            logs.failed('\nAborted')
+            logs.failed("\nAborted")
             return
         elif action == const.ACTION_PREVIOUS:
             selector.previous()

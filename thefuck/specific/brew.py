@@ -1,15 +1,16 @@
 import subprocess
-from ..utils import memoize, which
 
+from ..utils import memoize
+from ..utils import which
 
-brew_available = bool(which('brew'))
+brew_available = bool(which("brew"))
 
 
 @memoize
 def get_brew_path_prefix():
     """To get brew path"""
     try:
-        return subprocess.check_output(['brew', '--prefix'],
+        return subprocess.check_output(["brew", "--prefix"],
                                        universal_newlines=True).strip()
-    except:
+    except Exception:
         return None

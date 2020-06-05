@@ -1,20 +1,20 @@
 """ Fixes wrong package names with pacman or yaourt.
 
 For example the `llc` program is in package `llvm` so this:
-    yaourt -S llc
+    yay -S llc
 should be:
-    yaourt -S llvm
+    yay -S llvm
 """
-
+from thefuck.specific.archlinux import archlinux_env
+from thefuck.specific.archlinux import get_pkgfile
 from thefuck.utils import replace_command
-from thefuck.specific.archlinux import get_pkgfile, archlinux_env
 
 
 def match(command):
     return (command.script_parts
-            and (command.script_parts[0] in ('pacman', 'yaourt')
-                 or command.script_parts[0:2] == ['sudo', 'pacman'])
-            and 'error: target not found:' in command.stderr)
+            and (command.script_parts[0] in ("pacman", "yay", "yaourt")
+                 or command.script_parts[0:2] == ["sudo", "pacman"])
+            and "error: target not found:" in command.output)
 
 
 def get_new_command(command):

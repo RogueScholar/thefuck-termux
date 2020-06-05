@@ -1,68 +1,82 @@
 import pytest
-from tests.functional.plots import with_confirmation, without_confirmation, \
-    refuse_with_confirmation, history_changed, history_not_changed, \
-    select_command_with_arrows, how_to_configure
 
-containers = (('thefuck/ubuntu-python3-zsh',
-               u'''FROM ubuntu:latest
-                   RUN apt-get update
-                   RUN apt-get install -yy python3 python3-pip python3-dev git
-                   RUN pip3 install -U setuptools
-                   RUN ln -s /usr/bin/pip3 /usr/bin/pip
-                   RUN apt-get install -yy zsh''',
-               u'zsh'),
-              ('thefuck/ubuntu-python2-zsh',
-               u'''FROM ubuntu:latest
-                   RUN apt-get update
-                   RUN apt-get install -yy python python-pip python-dev git
-                   RUN pip2 install -U pip setuptools
-                   RUN apt-get install -yy zsh''',
-               u'zsh'))
+from tests.functional.plots import history_changed
+from tests.functional.plots import history_not_changed
+from tests.functional.plots import how_to_configure
+from tests.functional.plots import refuse_with_confirmation
+from tests.functional.plots import select_command_with_arrows
+from tests.functional.plots import with_confirmation
+from tests.functional.plots import without_confirmation
+
+python_3 = (
+    "thefuck/python3-zsh",
+    u"""FROM python:3
+                RUN apt-get update
+                RUN apt-get install -yy zsh""",
+    u"sh",
+)
+
+python_2 = (
+    "thefuck/python2-zsh",
+    u"""FROM python:2
+                RUN apt-get update
+                RUN apt-get install -yy zsh""",
+    u"sh",
+)
+
+init_zshrc = u"""echo '
+export SHELL=/usr/bin/zsh
+export HISTFILE=~/.zsh_history
+echo > $HISTFILE
+export SAVEHIST=100
+export HISTSIZE=100
+eval $(thefuck --alias {})
+setopt INC_APPEND_HISTORY
+echo "instant mode ready: $THEFUCK_INSTANT_MODE"
+' > ~/.zshrc"""
 
 
-@pytest.fixture(params=containers)
-def proc(request, spawnu, run_without_docker):
-    proc = spawnu(*request.param)
-    if not run_without_docker:
-        proc.sendline(u'pip install /src')
-    proc.sendline(u'eval $(thefuck --alias)')
-    proc.sendline(u'export HISTFILE=~/.zsh_history')
-    proc.sendline(u'echo > $HISTFILE')
-    proc.sendline(u'export SAVEHIST=100')
-    proc.sendline(u'export HISTSIZE=100')
-    proc.sendline(u'setopt INC_APPEND_HISTORY')
+@pytest.fixture(params=[(python_3, False), (python_3, True),
+                        (python_2, False)])
+def proc(request, spawnu, TIMEOUT):
+    container, instant_mode = request.param
+    proc = spawnu(*container)
+    proc.sendline(u"pip install /src")
+    assert proc.expect([TIMEOUT, u"Successfully installed"])
+    proc.sendline(
+        init_zshrc.format(
+            u"--enable-experimental-instant-mode" if instant_mode else ""))
+    proc.sendline(u"zsh")
+    if instant_mode:
+        assert proc.expect([TIMEOUT, u"instant mode ready: True"])
     return proc
 
 
 @pytest.mark.functional
-@pytest.mark.once_without_docker
 def test_with_confirmation(proc, TIMEOUT):
     with_confirmation(proc, TIMEOUT)
-    history_changed(proc, TIMEOUT, u'echo test')
+    history_changed(proc, TIMEOUT, u"echo test")
 
 
 @pytest.mark.functional
-@pytest.mark.once_without_docker
 def test_select_command_with_arrows(proc, TIMEOUT):
     select_command_with_arrows(proc, TIMEOUT)
-    history_changed(proc, TIMEOUT, u'git help')
+    history_changed(proc, TIMEOUT, u"git help")
 
 
 @pytest.mark.functional
-@pytest.mark.once_without_docker
 def test_refuse_with_confirmation(proc, TIMEOUT):
     refuse_with_confirmation(proc, TIMEOUT)
     history_not_changed(proc, TIMEOUT)
 
 
 @pytest.mark.functional
-@pytest.mark.once_without_docker
 def test_without_confirmation(proc, TIMEOUT):
     without_confirmation(proc, TIMEOUT)
-    history_changed(proc, TIMEOUT, u'echo test')
+    history_changed(proc, TIMEOUT, u"echo test")
 
 
 @pytest.mark.functional
-@pytest.mark.once_without_docker
 def test_how_to_configure_alias(proc, TIMEOUT):
+    proc.sendline(u"unfunction fuck")
     how_to_configure(proc, TIMEOUT)
