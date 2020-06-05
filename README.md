@@ -1,3 +1,27 @@
+# **If you are not on Cygwin, you don't want this version. Go get the original from [nvbn's repo](https://github.com/nvbn/thefuck)**
+
+## Installation
+
+    ./install.sh
+
+Then set up the alias in your `.bashrc` (or applicable startup script)
+
+	eval "$(thefuck --alias)"
+
+If you want `uninstall.sh` to work, you *must* use `install.sh` or install with `python setup.py install --record installed_files.txt`. 
+
+Changes were made to the following files:
+
+ - `setup.py`
+ - `thefuck/types.py` 
+ - `thefuck/shells/__init__.py`
+
+To see changes, compare those files with the ones in the `/originals` directory.
+
+There's almost definitely issues with timeouts in this version, considering it just ignores the timeout code (`types.py`). I wouldn't consider this particularly reliable, but it works on Cygwin for me currently.
+
+Now, the original README contents:
+
 # The Fuck [![Version][version-badge]][version-link] [![Build Status][travis-badge]][travis-link] [![Windows Build Status][appveyor-badge]][appveyor-link] [![Coverage][coverage-badge]][coverage-link] [![MIT License][license-badge]](LICENSE.md)
 
 _The Fuck_ is a magnificent app, inspired by a

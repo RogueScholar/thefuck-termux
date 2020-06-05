@@ -2,6 +2,8 @@ import os
 import sys
 from imp import load_source
 
+import six
+#from psutil import Process, TimeoutExpired
 from . import logs
 from .conf import settings
 from .const import ALL_ENABLED
@@ -69,6 +71,46 @@ class Command(object):
         kwargs.setdefault("output", self.output)
         return Command(**kwargs)
 
+    @staticmethod
+    def _wait_output(popen):
+        """Returns `True` if we can get output of the command in the
+        `settings.wait_command` time.
+
+        Command will be killed if it wasn't finished in the time.
+
+        :type popen: Popen
+        :rtype: bool
+
+        """
+        return True
+        # Removed for quick-hacked Cygwin compatibility
+        # Probably creates issues with timeouts
+        #proc = Process(popen.pid)
+        #try:
+        #    proc.wait(settings.wait_command)
+        #    return True
+        #except TimeoutExpired:
+        #    for child in proc.children(recursive=True):
+        #        child.kill()
+        #    proc.kill()
+        #    return False
+
+    @staticmethod
+    def _prepare_script(raw_script):
+        """Creates single script from a list of script parts.
+
+        :type raw_script: [basestring]
+        :rtype: basestring
+
+        """
+        if six.PY2:
+            script = ' '.join(arg.decode('utf-8') for arg in raw_script)
+        else:
+            script = ' '.join(raw_script)
+
+        script = script.strip()
+        return shell.from_shell(script)
+
     @classmethod
     def from_raw_script(cls, raw_script):
         """Creates instance of `Command` from a list of script parts.
@@ -82,9 +124,25 @@ class Command(object):
         if not script:
             raise EmptyCommand
 
-        expanded = shell.from_shell(script)
-        output = get_output(script, expanded)
-        return cls(expanded, output)
+        env = dict(os.environ)
+        env.update(settings.env)
+
+        with logs.debug_time(u'Call: {}; with env: {};'.format(script, env)):
+            result = Popen(script, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, env=env)
+            # Removed for quick-hacked Cygwin compatibility
+            # Note indentation change of remaining lines
+            #if cls._wait_output(result):
+            stdout = result.stdout.read().decode('utf-8')
+            stderr = result.stderr.read().decode('utf-8')
+
+            logs.debug(u'Received stdout: {}'.format(stdout))
+            logs.debug(u'Received stderr: {}'.format(stderr))
+
+            return cls(script, stdout, stderr)
+            #Removed for quick-hacked Cygwin compatibility
+            #else:
+                #logs.debug(u'Execution timed out!')
+                #return cls(script, None, None)
 
 
 class Rule(object):
